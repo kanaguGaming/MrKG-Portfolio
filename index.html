@@ -23,12 +23,13 @@
     <nav class="navbar">
         <div class="nav-brand">Mr<span>.</span>KG</div>
         <ul class="nav-links">
-            <li><button class="tab-btn active" data-target="home"><i class="fas fa-home"></i> Home</button></li>
-            <li><button class="tab-btn" data-target="education"><i class="fas fa-graduation-cap"></i> Education</button></li>
-            <li><button class="tab-btn" data-target="work"><i class="fas fa-briefcase"></i> Experience</button></li>
-            <li><button class="tab-btn" data-target="skills"><i class="fas fa-code"></i> Skills</button></li>
-            <li><button class="tab-btn" data-target="projects"><i class="fas fa-rocket"></i> Projects</button></li>
-            <li><button class="tab-btn" data-target="awards"><i class="fas fa-trophy"></i> Awards</button></li>
+            <!-- Changed <button> to <a> and data-target to href -->
+            <li><a href="#home" class="tab-btn active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#education" class="tab-btn"><i class="fas fa-graduation-cap"></i> Education</a></li>
+            <li><a href="#work" class="tab-btn"><i class="fas fa-briefcase"></i> Experience</a></li>
+            <li><a href="#skills" class="tab-btn"><i class="fas fa-code"></i> Skills</a></li>
+            <li><a href="#projects" class="tab-btn"><i class="fas fa-rocket"></i> Projects</a></li>
+            <li><a href="#awards" class="tab-btn"><i class="fas fa-trophy"></i> Awards</a></li>
         </ul>
     </nav>
 
@@ -36,7 +37,7 @@
     <main class="container">
         
         <!-- Home Section -->
-        <section id="home" class="tab-content active">
+        <section id="home" class="scroll-section">
             <div class="hero animate-item">
                 <div class="profile-avatar">
                     <!-- Replace with <img src="your-image.jpg" alt="Kanaga Prasath"> -->
@@ -59,12 +60,15 @@
                     <a href="https://www.linkedin.com/in/kanaga-prasath-balakumar/" target="_blank" class="btn primary-btn">
                         <i class="fab fa-linkedin"></i> Connect on LinkedIn
                     </a>
+                    <a href="Kanaga_Prasath_Resume.pdf" target="_blank" class="btn outline-btn">
+                        <i class="fas fa-file-pdf"></i> View Resume
+                    </a>
                 </div>
             </div>
         </section>
 
         <!-- Education Section -->
-        <section id="education" class="tab-content">
+        <section id="education" class="scroll-section">
             <div class="section-header animate-item">
                 <h2 class="section-title">Education</h2>
                 <div class="line"></div>
@@ -98,7 +102,7 @@
         </section>
 
         <!-- Work Experience Section -->
-        <section id="work" class="tab-content">
+        <section id="work" class="scroll-section">
             <div class="section-header animate-item">
                 <h2 class="section-title">Work Experience</h2>
                 <div class="line"></div>
@@ -143,7 +147,7 @@
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="tab-content">
+        <section id="skills" class="scroll-section">
             <div class="section-header animate-item">
                 <h2 class="section-title">Technical Arsenal</h2>
                 <div class="line"></div>
@@ -183,7 +187,7 @@
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="tab-content">
+        <section id="projects" class="scroll-section">
             <div class="section-header animate-item">
                 <h2 class="section-title">Featured Projects</h2>
                 <div class="line"></div>
@@ -194,7 +198,7 @@
                 <div class="glass-card project-card animate-item">
                     <div class="project-banner">
                         <div class="dummy-img-wide">
-                            <img src="Greenpal.jpeg" alt="GreenPal Project"></img>
+                            <img src="greenpal.jpeg" alt="GreenPal Project"></img>
                         </div>
                     </div>
                     <div class="project-body">
@@ -332,7 +336,7 @@ Non-Resident Indian (NRI) children. Engineered a high-performance backend using 
             </div>
         </section>
 
-        <section id="awards" class="tab-content">
+        <section id="awards" class="scroll-section">
     <div class="section-header animate-item">
         <h2 class="section-title">Awards & Honors</h2>
         <div class="line"></div>
