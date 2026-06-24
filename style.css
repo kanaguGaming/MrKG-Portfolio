@@ -137,8 +137,22 @@ body {
     padding: 0 2rem;
 }
 
-.tab-content { display: none; }
-.tab-content.active { display: block; }
+/* Enables smooth scrolling across the entire page */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Spaces out the sections and prevents the fixed navbar from overlapping the titles */
+.scroll-section {
+    padding-top: 6rem; /* Creates space for the navbar */
+    margin-bottom: 4rem; /* Space between sections */
+    scroll-margin-top: 5rem; /* Ensures anchor links land perfectly below nav */
+}
+
+/* Reset tab-btn text decoration since they are now anchor tags */
+.tab-btn {
+    text-decoration: none;
+}
 
 /* Staggered Animation Classes */
 .animate-item {
@@ -265,6 +279,19 @@ body {
     align-items: center;
     gap: 1rem; /* Adds space if you decide to add a GitHub button later */
     width: 100%;
+}
+.outline-btn {
+    background: transparent;
+    color: var(--text-main);
+    border: 2px solid var(--secondary);
+    box-shadow: none;
+}
+
+.outline-btn:hover {
+    background: rgba(14, 165, 233, 0.1); /* Soft glow using your secondary blue */
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+    border-color: var(--secondary);
 }
 .btn {
     display: inline-block;
@@ -466,13 +493,30 @@ body {
         padding: 1rem;
         gap: 1rem;
     }
+    
+    /* Makes the navigation swipeable on mobile */
     .nav-links {
         width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
         justify-content: flex-start;
-        padding-bottom: 0.5rem;
+        padding-bottom: 10px;
+        scroll-snap-type: x mandatory;
     }
-    .container { margin-top: 10rem; }
+    
+    .nav-links li {
+        scroll-snap-align: start;
+        flex: 0 0 auto; /* Prevents buttons from squishing */
+    }
+
+    /* Hides the ugly scrollbar on mobile nav */
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .container { margin-top: 8rem; }
     .card-top { flex-direction: column; gap: 0.8rem; }
     .gradient-text { font-size: 2.5rem; }
 }
