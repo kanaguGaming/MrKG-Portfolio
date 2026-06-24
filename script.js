@@ -1,56 +1,66 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('.scroll-section');
 
-    // Function to re-trigger animations inside a container
-    const triggerAnimations = (container) => {
-        const animatedItems = container.querySelectorAll('.animate-item');
-        animatedItems.forEach((item, index) => {
-            // Remove animation
-            item.style.animation = 'none';
-            item.offsetHeight; // Trigger reflow
-            
-            // Add animation back with a stagger delay
-            item.style.animation = `slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards`;
-            item.style.animationDelay = `${index * 0.1}s`; // 100ms stagger
-        });
+    // 1. Dynamic Scrollspy (Highlights active nav item on scroll)
+    const observerOptions = {
+        root: null,
+        rootMargin: '-40% 0px -60% 0px', // Triggers when section hits the upper-middle of the screen
+        threshold: 0
     };
 
-    // Initialize animation for home tab on load
-    const activeTab = document.querySelector('.tab-content.active');
-    if (activeTab) triggerAnimations(activeTab);
-
-    // Tab Switching Logic
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Remove active from all
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active'));
-
-            // Add active to clicked
-            btn.classList.add('active');
-            
-            // Show target section
-            const targetId = btn.getAttribute('data-target');
-            const targetSection = document.getElementById(targetId);
-            
-            if (targetSection) {
-                targetSection.classList.add('active');
-                // Trigger staggered entrance animation
-                triggerAnimations(targetSection);
-            }
-
-            // Scroll to top of container smoothly on mobile
-            if (window.innerWidth <= 850) {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Remove active class from all links
+                navLinks.forEach(link => link.classList.remove('active'));
+                
+                // Add active class to the currently viewed section's link
+                const currentId = entry.target.getAttribute('id');
+                const activeLink = document.querySelector(`.nav-links a[href="#${currentId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                    
+                    // On mobile, auto-scroll the navigation ribbon to keep active item visible
+                    if (window.innerWidth <= 850) {
+                        activeLink.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    }
+                }
             }
         });
+    }, observerOptions);
+
+    sections.forEach(section => scrollObserver.observe(section));
+
+    // 2. Reveal Animations on Scroll (Premium UI touch)
+    const animateItems = document.querySelectorAll('.animate-item');
+    
+    // Initial reset for animation items
+    animateItems.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
     });
 
-    // Optional: Add subtle mouse tracking glow to cards (Premium UI touch)
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Add a slight stagger delay to cards appearing at the same time
+                setTimeout(() => {
+                    entry.target.style.animation = `slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards`;
+                }, index * 100); 
+                
+                // Stop observing once animated
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        rootMargin: '0px 0px -50px 0px', // Trigger slightly before it comes into view
+        threshold: 0.1
+    });
+
+    animateItems.forEach(item => revealObserver.observe(item));
+
+    // 3. Mouse tracking glow for glass cards (Premium feature retained)
     document.querySelectorAll('.glass-card').forEach(card => {
         card.addEventListener('mousemove', e => {
             const rect = card.getBoundingClientRect();
