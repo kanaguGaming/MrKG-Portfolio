@@ -3,59 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanaga Prasath | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts: Inter & Space Grotesk for premium typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
+    <title>Kanaga Prasath | Full Stack Developer & IoT Engineer</title>
+    <meta name="description" content="Portfolio of Kanaga Prasath — Full Stack Developer, IoT Engineer, and AI/ML enthusiast from Tamil Nadu, India. Building bridges between software intelligence and hardware execution.">
+    <meta name="theme-color" content="#04050d">
+
+    <!-- Preconnect for speed -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Premium Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Portfolio Styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Premium Live Mesh Background -->
+
+    <!-- ── CUSTOM CURSOR ─────────────────────────────────────── -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- ── CURSOR SPOTLIGHT ──────────────────────────────────── -->
+    <div id="cursor-spotlight"></div>
+
+    <!-- ── AURORA CANVAS ─────────────────────────────────────── -->
+    <canvas id="aurora-canvas"></canvas>
+
+    <!-- ── AMBIENT ORB BACKGROUND ────────────────────────────── -->
     <div class="bg-mesh">
-        <div class="glow glow-1"></div>
-        <div class="glow glow-2"></div>
-        <div class="glow glow-3"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
         <div class="noise-overlay"></div>
     </div>
 
-    <!-- Floating Glass Navbar -->
-    <nav class="navbar">
-        <div class="nav-brand">Mr<span>.</span>KG</div>
+    <!-- ── FLOATING GLASS NAVBAR ─────────────────────────────── -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">Mr<span class="dot">.</span>KG</div>
         <ul class="nav-links">
-            <!-- Changed <button> to <a> and data-target to href -->
-            <li><a href="#home" class="tab-btn active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#home"      class="tab-btn active"><i class="fas fa-house"></i> Home</a></li>
             <li><a href="#education" class="tab-btn"><i class="fas fa-graduation-cap"></i> Education</a></li>
-            <li><a href="#work" class="tab-btn"><i class="fas fa-briefcase"></i> Experience</a></li>
-            <li><a href="#skills" class="tab-btn"><i class="fas fa-code"></i> Skills</a></li>
-            <li><a href="#projects" class="tab-btn"><i class="fas fa-rocket"></i> Projects</a></li>
-            <li><a href="#awards" class="tab-btn"><i class="fas fa-trophy"></i> Awards</a></li>
+            <li><a href="#work"      class="tab-btn"><i class="fas fa-briefcase"></i> Experience</a></li>
+            <li><a href="#skills"    class="tab-btn"><i class="fas fa-code"></i> Skills</a></li>
+            <li><a href="#projects"  class="tab-btn"><i class="fas fa-rocket"></i> Projects</a></li>
+            <li><a href="#awards"    class="tab-btn"><i class="fas fa-trophy"></i> Awards</a></li>
         </ul>
     </nav>
 
-    <!-- Main Content -->
+    <!-- ── MAIN CONTENT ──────────────────────────────────────── -->
     <main class="container">
-        
-        <!-- Home Section -->
+
+        <!-- ────── HOME / HERO ────── -->
         <section id="home" class="scroll-section">
             <div class="hero animate-item">
                 <div class="profile-avatar">
-                    <!-- Replace with <img src="your-image.jpg" alt="Kanaga Prasath"> -->
                     <div class="dummy-img">
-                        <img src="portrait.png" alt="Kanaga Prasath"></img>
+                        <img src="portrait.png" alt="Kanaga Prasath">
                     </div>
                 </div>
+
                 <h1 class="gradient-text">Kanaga Prasath</h1>
-                <h2 class="subtitle">Full Stack Developer & IoT Engineer</h2>
+
+                <!-- Subtitle gets typing effect via JS -->
+                <p class="subtitle">Full Stack Developer</p>
+
                 <p class="intro-text">
-                    Passionate developer specializing in Python, Embedded Systems, and AI/ML integrations. 
-                    I build bridges between software intelligence and hardware execution to create impactful, real-world solutions.
+                    Passionate developer specializing in Python, Embedded Systems, and AI/ML integrations.
+                    I build bridges between software intelligence and hardware execution to create
+                    impactful, real-world solutions.
                 </p>
+
                 <div class="contact-info">
-                    <a href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJZcRPScKpqsqwVcDZNqnjPwMpWVkWpnVrqjfcbvFDThqWzxBHMwhZznccJrPNlDmPJsbTg"><i class="fas fa-envelope"></i> kanagubry@gmail.com</a>
-                    <a href="tel:+918940293794"><i class="fas fa-phone"></i> +91 8940293794</a>
-                    <span class="location"><i class="fas fa-map-marker-alt"></i> Chengalpattu, TN</span>
+                    <a href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJZcRPScKpqsqwVcDZNqnjPwMpWVkWpnVrqjfcbvFDThqWzxBHMwhZznccJrPNlDmPJsbTg">
+                        <i class="fas fa-envelope"></i> kanagubry@gmail.com
+                    </a>
+                    <a href="tel:+918940293794">
+                        <i class="fas fa-phone"></i> +91 8940293794
+                    </a>
+                    <span class="location">
+                        <i class="fas fa-map-marker-alt"></i> Chengalpattu, TN
+                    </span>
                 </div>
+
                 <div class="social-links">
                     <a href="https://www.linkedin.com/in/kanaga-prasath-balakumar/" target="_blank" class="btn primary-btn">
                         <i class="fab fa-linkedin"></i> Connect on LinkedIn
@@ -67,393 +101,431 @@
             </div>
         </section>
 
-        <!-- Education Section -->
+        <!-- ────── EDUCATION ────── -->
         <section id="education" class="scroll-section">
             <div class="section-header animate-item">
                 <h2 class="section-title">Education</h2>
                 <div class="line"></div>
             </div>
             <div class="card-stack">
+
                 <div class="glass-card animate-item">
                     <div class="card-top">
-                        <h3>Bachelor of Engineering - Computer Science</h3>
-                        <span class="badge date-badge">Sep 2023 - Apr 2027</span>
+                        <h3><i class="fas fa-university"></i> Bachelor of Engineering — Computer Science</h3>
+                        <span class="badge date-badge">Sep 2023 – Apr 2027</span>
                     </div>
                     <h4>Adhi College of Engineering and Technologies, Kancheepuram</h4>
                     <p class="stat"><i class="fas fa-star"></i> CGPA: <span>8.1</span></p>
                 </div>
+
                 <div class="glass-card animate-item">
                     <div class="card-top">
-                        <h3>Higher Secondary - Computer Science</h3>
-                        <span class="badge date-badge">May 2021 - May 2023</span>
+                        <h3><i class="fas fa-school"></i> Higher Secondary — Computer Science</h3>
+                        <span class="badge date-badge">May 2021 – May 2023</span>
                     </div>
                     <h4>Seventh Day Adventist Mt Hr Sec School, Chengalpattu</h4>
-                    <p class="stat"><i class="fas fa-percentage"></i> Score: <span>76%</span></p>
+                    <p class="stat"><i class="fas fa-chart-line"></i> Score: <span>76%</span></p>
                 </div>
+
                 <div class="glass-card animate-item">
                     <div class="card-top">
-                        <h3>Secondary Schooling - ICSE</h3>
-                        <span class="badge date-badge">May 2011 - Apr 2021</span>
+                        <h3><i class="fas fa-book"></i> Secondary Schooling — ICSE</h3>
+                        <span class="badge date-badge">May 2011 – Apr 2021</span>
                     </div>
                     <h4>Seventh Day Adventist Mt Hr Sec School, Chengalpattu</h4>
-                    <p class="stat"><i class="fas fa-percentage"></i> Score: <span>82%</span></p>
+                    <p class="stat"><i class="fas fa-chart-line"></i> Score: <span>82%</span></p>
                 </div>
+
             </div>
         </section>
 
-        <!-- Work Experience Section -->
+        <!-- ────── WORK EXPERIENCE ────── -->
         <section id="work" class="scroll-section">
             <div class="section-header animate-item">
                 <h2 class="section-title">Work Experience</h2>
                 <div class="line"></div>
             </div>
             <div class="card-stack">
+
                 <div class="glass-card animate-item">
                     <div class="card-top">
-                        <h3>Robotics and IoT Intern</h3>
-                        <span class="badge date-badge">Jun 2026 - Aug 2026</span>
+                        <h3><i class="fas fa-microchip"></i> Robotics and IoT Intern</h3>
+                        <span class="badge date-badge">Jun 2026 – Aug 2026</span>
                     </div>
                     <h4>Codec Technologies <span class="badge outline-badge">Remote</span></h4>
                 </div>
+
                 <div class="glass-card animate-item">
                     <div class="card-top">
-                        <h3>Data Science Intern</h3>
+                        <h3><i class="fas fa-database"></i> Data Science Intern</h3>
                         <span class="badge date-badge">Jun 2026</span>
                     </div>
                     <h4>Thiranex <span class="badge outline-badge">Remote</span></h4>
                 </div>
+
                 <div class="glass-card animate-item">
                     <div class="card-top">
-                        <h3>Data Analysis Intern</h3>
-                        <span class="badge date-badge">Mar 2026 - Apr 2026</span>
+                        <h3><i class="fas fa-chart-bar"></i> Data Analysis Intern</h3>
+                        <span class="badge date-badge">Mar 2026 – Apr 2026</span>
                     </div>
                     <h4>Cognifyz Technologies <span class="badge outline-badge">Remote</span></h4>
                 </div>
+
                 <div class="glass-card animate-item">
                     <div class="card-top">
-                        <h3>Digital Marketing Intern</h3>
-                        <span class="badge date-badge">Feb 2026 - Mar 2026</span>
+                        <h3><i class="fas fa-bullhorn"></i> Digital Marketing Intern</h3>
+                        <span class="badge date-badge">Feb 2026 – Mar 2026</span>
                     </div>
                     <h4>TurnIP <span class="badge outline-badge">Remote</span></h4>
                 </div>
+
                 <div class="glass-card animate-item">
                     <div class="card-top">
-                        <h3>Full Stack Developer Intern</h3>
-                        <span class="badge date-badge">Dec 2025 - Jan 2026</span>
+                        <h3><i class="fas fa-layer-group"></i> Full Stack Developer Intern</h3>
+                        <span class="badge date-badge">Dec 2025 – Jan 2026</span>
                     </div>
                     <h4>Cognifyz Technologies <span class="badge outline-badge">Remote</span></h4>
                 </div>
+
             </div>
         </section>
 
-        <!-- Skills Section -->
+        <!-- ────── SKILLS ────── -->
         <section id="skills" class="scroll-section">
             <div class="section-header animate-item">
                 <h2 class="section-title">Technical Arsenal</h2>
                 <div class="line"></div>
             </div>
             <div class="card-stack">
+
                 <div class="glass-card animate-item">
                     <h3><i class="fas fa-terminal"></i> Programming Languages</h3>
                     <div class="tags">
                         <span class="tag">Python</span>
-                        <span class="tag">HTML/CSS/JS</span>
+                        <span class="tag">HTML / CSS / JS</span>
                         <span class="tag">Embedded C</span>
                     </div>
                 </div>
+
                 <div class="glass-card animate-item">
-                    <h3><i class="fas fa-brain"></i> Development & AI</h3>
+                    <h3><i class="fas fa-brain"></i> Development &amp; AI</h3>
                     <div class="tags">
-                        <span class="tag">Flask</span><span class="tag">FastAPI</span><span class="tag">Pandas</span>
-                        <span class="tag">Streamlit</span><span class="tag">MongoDB</span><span class="tag">Firebase</span>
-                        <span class="tag">OpenCV</span><span class="tag">CNN</span><span class="tag">NLP</span>
-                        <span class="tag">LLM</span><span class="tag">RAG</span>
+                        <span class="tag">Flask</span>
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">Pandas</span>
+                        <span class="tag">Streamlit</span>
+                        <span class="tag">MongoDB</span>
+                        <span class="tag">Firebase</span>
+                        <span class="tag">OpenCV</span>
+                        <span class="tag">CNN</span>
+                        <span class="tag">NLP</span>
+                        <span class="tag">LLM</span>
+                        <span class="tag">RAG</span>
                     </div>
                 </div>
+
                 <div class="glass-card animate-item">
-                    <h3><i class="fas fa-microchip"></i> IoT & Hardware</h3>
+                    <h3><i class="fas fa-microchip"></i> IoT &amp; Hardware</h3>
                     <div class="tags">
-                        <span class="tag">Arduino IDE</span><span class="tag">ESP32</span><span class="tag">Arduino UNO R3/R4</span>
+                        <span class="tag">Arduino IDE</span>
+                        <span class="tag">ESP32</span>
+                        <span class="tag">ESP8266</span>
+                        <span class="tag">Arduino UNO R3/R4</span>
                     </div>
                 </div>
+
                 <div class="glass-card animate-item">
-                    <h3><i class="fas fa-users"></i> Soft & Other Skills</h3>
+                    <h3><i class="fas fa-users"></i> Soft &amp; Other Skills</h3>
                     <div class="tags">
-                        <span class="tag">Seminars</span><span class="tag">Event Anchoring</span><span class="tag">Video Editing</span>
-                        <span class="tag">Political Speaker</span><span class="tag">Bike Tourer</span>
+                        <span class="tag">Seminars</span>
+                        <span class="tag">Event Anchoring</span>
+                        <span class="tag">Video Editing</span>
+                        <span class="tag">Political Speaker</span>
+                        <span class="tag">Bike Tourer</span>
                     </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- Projects Section -->
+        <!-- ────── PROJECTS ────── -->
         <section id="projects" class="scroll-section">
             <div class="section-header animate-item">
                 <h2 class="section-title">Featured Projects</h2>
                 <div class="line"></div>
             </div>
             <div class="card-stack">
-                
-                <!-- Project 1 -->
+
+                <!-- Project 1 – GreenPal -->
                 <div class="glass-card project-card animate-item">
                     <div class="project-banner">
                         <div class="dummy-img-wide">
-                            <img src="greenpal.jpeg" alt="GreenPal Project"></img>
+                            <img src="Greenpal.jpeg" alt="GreenPal — IoT Plant Monitoring System">
                         </div>
                     </div>
                     <div class="project-body">
                         <h3>GreenPal</h3>
-                        <p>A concept where plants aren’t just monitored, but understood. Built to bridge nature and tech seamlessly.</p>
+                        <p>A concept where plants aren't just monitored, but <em>understood</em>. Built to bridge nature and tech seamlessly using IoT sensors and AI classification.</p>
                         <div class="tags">
-                            <span class="tag">FastAPI</span><span class="tag">ESP32</span><span class="tag">Firebase</span>
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">ESP32</span>
+                            <span class="tag">Firebase</span>
                         </div>
-                        <div class="tags">
-                            <span class="tag">Sairam Instute of Technology - April 2026</span><span class="tag">24 H Live</span>
-                        </div>
-                        <a href="https://www.linkedin.com/posts/kanaga-prasath-balakumar_hackathon-iot-innovation-activity-7450897020799827968-Ny3B?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyqPesBe-rSIZu2cdNMoSCTbtiQT8eenOs" target="_blank" class="action-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://www.linkedin.com/posts/kanaga-prasath-balakumar_hackathon-iot-innovation-activity-7450897020799827968-Ny3B?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyqPesBe-rSIZu2cdNMoSCTbtiQT8eenOs" target="_blank" class="action-link">
+                            View Project <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Project 2 -->
+                <!-- Project 2 – Evaluate.ME -->
                 <div class="glass-card project-card animate-item">
                     <div class="project-banner">
                         <div class="dummy-img-wide">
-                            <img src="evaluate.png" alt="Evaluate.ME Project"></img>
+                            <img src="evaluate.png" alt="Evaluate.ME — Career Architecture Platform">
                         </div>
                     </div>
                     <div class="project-body">
                         <h3>Evaluate.ME</h3>
-                        <p>A career architecture platform designed to bridge the gap between where you are and where you want to be using hyper-personalized guidance.</p>
+                        <p>A career architecture platform designed to bridge the gap between where you are and where you want to be using hyper-personalized AI guidance.</p>
                         <div class="tags">
-                            <span class="tag">Pandas</span><span class="tag">LLM/RAG</span><span class="tag">Random Forest</span>
+                            <span class="tag">Pandas</span>
+                            <span class="tag">LLM / RAG</span>
+                            <span class="tag">Random Forest</span>
                         </div>
-                        <div class="tags">
-                            <span class="tag">Sathyabama Instute of Science & Technology - March 2026</span><span class="tag">24 H Live</span>
-                        </div>
-                        <a href="https://www.linkedin.com/posts/kanaga-prasath-balakumar_innoverse26-hackathonlife-24hourchallenge-activity-7433458453265756160-CZMy?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyqPesBe-rSIZu2cdNMoSCTbtiQT8eenOs" target="_blank" class="action-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://www.linkedin.com/posts/kanaga-prasath-balakumar_innoverse26-hackathonlife-24hourchallenge-activity-7433458453265756160-CZMy?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyqPesBe-rSIZu2cdNMoSCTbtiQT8eenOs" target="_blank" class="action-link">
+                            View Project <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Project 3 -->
+                <!-- Project 3 – Sidekick AI -->
                 <div class="glass-card project-card animate-item">
                     <div class="project-banner">
                         <div class="dummy-img-wide">
-                            <img src="sideKickAI.png" alt="Sidekick AI Project"></img>
+                            <img src="sideKickAI.png" alt="Sidekick AI — VS Code Teaching Assistant">
                         </div>
                     </div>
                     <div class="project-body">
                         <h3>Sidekick AI</h3>
-                        <p>An LLM-powered VS Code extension that acts as a 24/7 virtual Socratic Teaching Assistant for programming labs.</p>
+                        <p>An LLM-powered VS Code extension that acts as a 24/7 virtual Socratic Teaching Assistant for programming labs — guiding, not giving away answers.</p>
                         <div class="tags">
-                            <span class="tag">VSC extention development</span><span class="tag">LLM / RAG</span><span class="tag">VS Code API</span>
+                            <span class="tag">Flask</span>
+                            <span class="tag">LLM / RAG</span>
+                            <span class="tag">VS Code API</span>
                         </div>
-                        <div class="tags">
-                            <span class="tag">Adhi College of Engineering & Technology - January 2026</span>
-                        </div>
-                        <a href="https://github.com/kanaguGaming/Side-Kick-AI" target="_blank" class="action-link">Source Code <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://github.com/kanaguGaming/Side-Kick-AI" target="_blank" class="action-link">
+                            Source Code <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Project 4 -->
+                <!-- Project 4 – OriHome -->
                 <div class="glass-card project-card animate-item">
                     <div class="project-banner">
                         <div class="dummy-img-wide">
-                            <img src="Orihome.jpeg" alt="OriHome Project"></img> 
+                            <img src="Orihome.jpeg" alt="OriHome — Cloud Smart Home Automation">
                         </div>
                     </div>
                     <div class="project-body">
                         <h3>OriHome</h3>
-                        <p>End-to-end cloud-based smart home solution bridging the gap between traditional appliances and remote connectivity.</p>
+                        <p>End-to-end cloud-based smart home solution bridging the gap between traditional appliances and remote connectivity via IoT and Flask APIs.</p>
                         <div class="tags">
-                            <span class="tag">Flask</span><span class="tag">Arduino UNO R4</span><span class="tag">ThingSpeak</span>
+                            <span class="tag">Flask</span>
+                            <span class="tag">Arduino UNO R4</span>
+                            <span class="tag">ThingSpeak</span>
                         </div>
-                        <div class="tags">
-                            <span class="tag">Adhi College of Engineering & Technology - Feburary 2026</span>
-                        </div>
-                        <a href="https://www.linkedin.com/posts/kanaga-prasath-balakumar_innovesta26-teamorion-adhicollegeofengineeringandtechnology-activity-7432814052638273536-MTQo?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyqPesBe-rSIZu2cdNMoSCTbtiQT8eenOs" target="_blank" class="action-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://www.linkedin.com/posts/kanaga-prasath-balakumar_innovesta26-teamorion-adhicollegeofengineeringandtechnology-activity-7432814052638273536-MTQo?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyqPesBe-rSIZu2cdNMoSCTbtiQT8eenOs" target="_blank" class="action-link">
+                            View Project <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Project 5 -->
+                <!-- Project 5 – ExamSeat Pro -->
                 <div class="glass-card project-card animate-item">
                     <div class="project-banner">
                         <div class="dummy-img-wide">
-                            <img src="ExamSeat.jpeg" alt="ExamSeat Pro Project"></img>
+                            <img src="ExamSeat.jpeg" alt="ExamSeat Pro — Automated Exam Hall Seating">
                         </div>
                     </div>
                     <div class="project-body">
-                        <h3>ExamSeat Pro - Automated exam seat allotment software for institutions.</h3>
-                        <p>Independently developed and deployed an automated exam hall seating arrangement system for my college's Examination Cell. Built as a standalone Windows application (.exe). Currently, the application is actively utilized by the college administration to streamline the exam seating process.</p>
+                        <h3>ExamSeat Pro</h3>
+                        <p>Independently developed and deployed an automated exam hall seating arrangement system for my college's Examination Cell. A standalone Windows .exe actively used by the administration.</p>
                         <div class="tags">
-                            <span class="tag">Python Pandas</span><span class="tag">EXE Wrapping</span><span class="tag">Custom Logic</span>
+                            <span class="tag">Python Pandas</span>
+                            <span class="tag">EXE Wrapping</span>
+                            <span class="tag">Custom Logic</span>
                         </div>
-                        <div class="tags">
-                            <span class="tag">Adhi College of Engineering & Technology - March 2026</span>
-                        </div>
-                        <a href="https://github.com/kanaguGaming/ESP-Students-login " target="_blank" class="action-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://github.com/kanaguGaming/ESP-Students-login" target="_blank" class="action-link">
+                            View Project <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Project 6 -->
+                <!-- Project 6 – DraLan -->
                 <div class="glass-card project-card animate-item">
                     <div class="project-banner">
                         <div class="dummy-img-wide">
-                            <img src="pro6.jpeg" alt="DraLan Project"></img>
+                            <img src="pro6.jpeg" alt="DraLan — NRI Children Platform">
                         </div>
                     </div>
                     <div class="project-body">
                         <h3>DraLan</h3>
-                        <p>A web-based platform dedicated to addressing the unique cultural and administrative challenges faced by
-Non-Resident Indian (NRI) children. Engineered a high-performance backend using FastAPI for efficient data processing, paired with a clean, responsive HTML frontend.
-</p>
+                        <p>A web-based platform addressing unique cultural and administrative challenges faced by NRI children. High-performance FastAPI backend paired with a responsive HTML frontend with voice capabilities.</p>
                         <div class="tags">
-                            <span class="tag">Python Fast API</span><span class="tag">LLM, RAG</span><span class="tag">NLP</span><span class="tag">Voice recognition</span><span class="tag">Voice synthesis</span>
+                            <span class="tag">Python Flask</span>
+                            <span class="tag">LLM / RAG</span>
+                            <span class="tag">NLP</span>
+                            <span class="tag">Voice Recognition</span>
+                            <span class="tag">Voice Synthesis</span>
                         </div>
-                        <div class="tags">
-                            <span class="tag">Sri Manakula Vinayagar College of Engineering & Technology - January 2026</span><span class="tag">36 H Live</span>
-                        </div>
-                        <a href="https://www.linkedin.com/posts/kanaga-prasath-balakumar_proud-to-share-that-i-represented-adhi-college-activity-7421128452361052160-IXMu?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyqPesBe-rSIZu2cdNMoSCTbtiQT8eenOs" target="_blank" class="action-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://www.linkedin.com/posts/kanaga-prasath-balakumar_proud-to-share-that-i-represented-adhi-college-activity-7421128452361052160-IXMu?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyqPesBe-rSIZu2cdNMoSCTbtiQT8eenOs" target="_blank" class="action-link">
+                            View Project <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Project 7 -->
+                <!-- Project 7 – Urbanite -->
                 <div class="glass-card project-card animate-item">
                     <div class="project-banner">
                         <div class="dummy-img-wide">
-                            <img src="pro7.jpeg" alt="Urbanite Project"></img>
+                            <img src="pro7.jpeg" alt="Urbanite — Civic Issue Reporting Platform">
                         </div>
                     </div>
                     <div class="project-body">
-                        <h3>Urbanite - Crowd sourced civic issue reporting platform</h3>
-                        <p>A crowd-sourced civic issue reporting platform that allows the public to upload problems with location, image, and description through a web app. Our Al model (CNN-based) automatically classifies the issue and forwards it to the respective government department for action.</p>
+                        <h3>Urbanite</h3>
+                        <p>A crowd-sourced civic issue reporting platform where the public uploads problems with location, image, and description. A CNN-based AI model auto-classifies issues and routes them to the relevant government department.</p>
                         <div class="tags">
-                            <span class="tag">Pandas</span><span class="tag">CNN</span><span class="tag">G Map API</span><span class="tag">FastAPI</span>
+                            <span class="tag">Pandas</span>
+                            <span class="tag">CNN</span>
+                            <span class="tag">Google Maps API</span>
+                            <span class="tag">FastAPI</span>
                         </div>
-                        <div class="tags">
-                            <span class="tag">Adhi College of Engineering & Technology - December 2025</span>
-                        </div>
-                        <a href="https://www.linkedin.com/posts/kanaga-prasath-balakumar_hackathonexperience-hackathon-hackathon-activity-7423020024438767616-T5H7?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyqPesBe-rSIZu2cdNMoSCTbtiQT8eenOs" target="_blank" class="action-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://www.linkedin.com/posts/kanaga-prasath-balakumar_hackathonexperience-hackathon-hackathon-activity-7423020024438767616-T5H7?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyqPesBe-rSIZu2cdNMoSCTbtiQT8eenOs" target="_blank" class="action-link">
+                            View Project <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Project 8 -->
+                <!-- Project 8 – NCO Semantic Search -->
                 <div class="glass-card project-card animate-item">
                     <div class="project-banner">
                         <div class="dummy-img-wide">
-                            <img src="pro8.png" alt="NCO Semantic Search Project"></img>
+                            <img src="pro8.png" alt="NCO Semantic Search System">
                         </div>
                     </div>
                     <div class="project-body">
-                        <h3>Semantic search based national classification of occupation survey system via online platform</h3>
-                        <p>This is a survey system made to address the problem of the survey enumerators face during any kind of survey. For those kinds of situations, we custom trained the BERT model to understand the NCO listed occupations to build a NCO survey system.</p>
+                        <h3>NCO Semantic Search System</h3>
+                        <p>A semantic search-based National Classification of Occupation survey system. Custom-trained BERT model understands NCO-listed occupations to help survey enumerators accurately classify data.</p>
                         <div class="tags">
-                            <span class="tag">BERT</span><span class="tag">MBERT</span><span class="tag">Semantic Search</span><span class="tag">Semantic Search</span>
+                            <span class="tag">BERT</span>
+                            <span class="tag">mBERT</span>
+                            <span class="tag">Semantic Search</span>
+                            <span class="tag">NLP</span>
                         </div>
-                        <div class="tags">
-                            <span class="tag">Adhi College of Engineering & Technology - November 2025</span>
-                        </div>
-                        <a href="https://github.com/kanaguGaming/nco-semantic-search " target="_blank" class="action-link">Source Code <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://github.com/kanaguGaming/nco-semantic-search" target="_blank" class="action-link">
+                            Source Code <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
-
 
             </div>
         </section>
 
+        <!-- ────── AWARDS & HONORS ────── -->
         <section id="awards" class="scroll-section">
-    <div class="section-header animate-item">
-        <h2 class="section-title">Awards & Honors</h2>
-        <div class="line"></div>
-    </div>
-    <div class="card-stack">
-        
-        <!-- Award 1 -->
-        <div class="glass-card project-card animate-item">
-            <div class="project-banner">
-                <div class="dummy-img-wide">
-                    <img src="awa3.jpeg" alt="Innovesta 26 Expo Award"></img>
-                </div>
+            <div class="section-header animate-item">
+                <h2 class="section-title">Awards &amp; Honors</h2>
+                <div class="line"></div>
             </div>
-            <div class="project-body">
-                <div class="card-top">
-                    <h3>Winner (CSE) - Innovesta 26 Project Expo</h3>
-                    <span class="badge date-badge">Feb 2026</span>
-                </div>
-                <h4>Adhi College Of Engineering & Technology, Kancheepuram</h4>
-                <p class="award-desc"><i class="fas fa-award"></i> Awarded for "Cloud Based Smart Home Automation" Project.</p>
-            </div>
-        </div>
+            <div class="card-stack">
 
-        <!-- Award 2 -->
-        <div class="glass-card project-card animate-item">
-            <div class="project-banner">
-                <div class="dummy-img-wide">
-                    <img src="awa2.jpeg" alt="National Level IoT Hackathon Award"></img>
+                <!-- Award 1 -->
+                <div class="glass-card project-card animate-item">
+                    <div class="project-banner">
+                        <div class="dummy-img-wide">
+                            <img src="awa3.jpeg" alt="Innovesta 26 Expo Winner">
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <div class="card-top">
+                            <h3><i class="fas fa-trophy"></i> Innovesta 26 Expo — Winner (CSE)</h3>
+                            <span class="badge date-badge">Feb 2026</span>
+                        </div>
+                        <h4>Adhi College Of Engineering &amp; Technology</h4>
+                        <p class="award-desc"><i class="fas fa-award"></i> Awarded for "Cloud Based Smart Home Automation" Project.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="project-body">
-                <div class="card-top">
-                    <h3>Winners - National Level IoT Live Hackathon</h3>
-                    <span class="badge date-badge">Feb 2026</span>
-                </div>
-                <h4>SRM Institute of Science & Technology, Katangulathur</h4>
-                <p class="award-desc"><i class="fas fa-award"></i> Awarded for creating the best ground rover using ESP32.</p>
-            </div>
-        </div>
 
-        <!-- Award 3 -->
-        <div class="glass-card project-card animate-item">
-            <div class="project-banner">
-                <div class="dummy-img-wide">
-                    <img src="awa1.jpeg" alt="IoT Division Winners Award"></img>
+                <!-- Award 2 -->
+                <div class="glass-card project-card animate-item">
+                    <div class="project-banner">
+                        <div class="dummy-img-wide">
+                            <img src="awa2.jpeg" alt="National Level IoT Hackathon Runner Up">
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <div class="card-top">
+                            <h3><i class="fas fa-medal"></i> Runner Up — National Level IoT Hackathon</h3>
+                            <span class="badge date-badge">Feb 2026</span>
+                        </div>
+                        <h4>SRM Institute of Science &amp; Technology</h4>
+                        <p class="award-desc"><i class="fas fa-award"></i> Awarded for creating the best ground rover using ESP8266.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="project-body">
-                <div class="card-top">
-                    <h3>IoT Division Winners - HacktirX 24H live hackathon</h3>
-                    <span class="badge date-badge">May 2026</span>
-                </div>
-                <h4>Sairam Institute of Engineering & Technology, Chennai</h4>
-                <p class="award-desc"><i class="fas fa-award"></i> Awarded for the "GreenPal" project.</p>
-            </div>
-        </div>
 
-        <!-- Award 4 -->
-        <div class="glass-card project-card animate-item">
-            <div class="project-banner">
-                <div class="dummy-img-wide">
-                    <img src="awa4.jpeg" alt="Rapid Fire & Technical Quiz Winner"></img>
+                <!-- Award 3 -->
+                <div class="glass-card project-card animate-item">
+                    <div class="project-banner">
+                        <div class="dummy-img-wide">
+                            <img src="awa1.jpeg" alt="IoT Division Winners Special Mention">
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <div class="card-top">
+                            <h3><i class="fas fa-star"></i> IoT Division Winners — Special Mention</h3>
+                            <span class="badge date-badge">May 2026</span>
+                        </div>
+                        <h4>Sairam Institute of Engineering &amp; Technology</h4>
+                        <p class="award-desc"><i class="fas fa-award"></i> Awarded for the "GreenPal" IoT project.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="project-body">
-                <div class="card-top">
-                    <h3>Solo Winner - Rapid Fire & Technical Quiz</h3>
-                    <span class="badge date-badge">Feb 2026</span>
-                </div>
-                <h4>Chennai Institute of Technology, Chennai</h4>
-                <p class="award-desc"><i class="fas fa-award"></i> Solo winner competitive technical quiz event at magnus symposium.</p>
-            </div>
-        </div>
 
-        <!-- Award 5 -->
-        <div class="glass-card project-card animate-item">
-            <div class="project-banner">
-                <div class="dummy-img-wide">
-                    <img src="awa5.jpeg" alt="Rapid Fire & Technical Quiz Winner"></img>
+                <!-- Award 4 -->
+                <div class="glass-card project-card animate-item">
+                    <div class="project-banner">
+                        <div class="dummy-img-wide">
+                            <img src="awa4.jpeg" alt="Rapid Fire & Technical Quiz Winner">
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <div class="card-top">
+                            <h3><i class="fas fa-bolt"></i> Rapid Fire &amp; Technical Quiz Winner</h3>
+                            <span class="badge date-badge">Feb 2026</span>
+                        </div>
+                        <h4>Chennai Institute of Technology, Chennai</h4>
+                        <p class="award-desc"><i class="fas fa-award"></i> Solo winner of a highly competitive technical quiz event.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="project-body">
-                <div class="card-top">
-                    <h3>Team Runners - Technical Quiz Second</h3>
-                    <span class="badge date-badge">Mar 2026</span>
-                </div>
-                <h4>VELS University, Chennai</h4>
-                <p class="award-desc"><i class="fas fa-award"></i> Team winners competitive technical event at CuBusted symposium.</p>
-            </div>
-        </div>
 
-    </div>
-</section>
+                <!-- Award 5 -->
+                <div class="glass-card project-card animate-item">
+                    <div class="project-banner">
+                        <div class="dummy-img-wide">
+                            <img src="awa5.jpeg" alt="Technical Quiz Second Runners">
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <div class="card-top">
+                            <h3><i class="fas fa-medal"></i> Technical Quiz — Second Runners</h3>
+                            <span class="badge date-badge">Mar 2026</span>
+                        </div>
+                        <h4>VELS University</h4>
+                        <p class="award-desc"><i class="fas fa-award"></i> Team winners of a competitive technical event.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
 
     </main>
 
