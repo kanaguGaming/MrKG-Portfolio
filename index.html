@@ -22,6 +22,29 @@
 </head>
 <body>
 
+    <!-- ── PAGE INTRO LOADER ─────────────────────────────────── -->
+    <div id="loader">
+        <div id="loader-center">
+            <svg id="loader-ring-svg" viewBox="0 0 176 176" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%"   stop-color="#7c3aed"/>
+                        <stop offset="35%"  stop-color="#2563eb"/>
+                        <stop offset="65%"  stop-color="#06b6d4"/>
+                        <stop offset="100%" stop-color="#d946ef"/>
+                    </linearGradient>
+                </defs>
+                <!-- Dim track ring -->
+                <circle class="ring-track" cx="88" cy="88" r="80"/>
+                <!-- Animated clockwise fill -->
+                <circle class="ring-fill"  cx="88" cy="88" r="80"/>
+            </svg>
+            <div id="loader-img-wrap">
+                <img src="portrait.jpg" alt="Kanaga Prasath">
+            </div>
+        </div>
+    </div>
+
     <!-- ── CUSTOM CURSOR ─────────────────────────────────────── -->
     <div id="cursor-dot"></div>
     <div id="cursor-ring"></div>
@@ -571,6 +594,21 @@
         </section>
 
     </main>
+
+    <!-- ── IMAGE LIGHTBOX ────────────────────────────────────── -->
+    <div id="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <div class="lightbox-card">
+            <div class="lightbox-toolbar">
+                <button class="lightbox-back" id="lightbox-back-btn" aria-label="Close image viewer">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <span class="lightbox-caption" id="lightbox-caption"></span>
+            </div>
+            <div class="lightbox-img-wrap">
+                <img id="lightbox-img" src="" alt="">
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

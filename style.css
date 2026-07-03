@@ -869,7 +869,7 @@ body.cursor-click #cursor-ring {
 
 .dummy-img-wide {
   width: 100%;
-  height: 220px;
+  height: 240px;
   background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   display: flex;
   flex-direction: column;
@@ -884,9 +884,8 @@ body.cursor-click #cursor-ring {
 .dummy-img-wide img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
-  background-color: #08090f;
+  object-fit: cover;
+  object-position: center top;
   transition: transform 0.6s var(--ease-smooth);
 }
 
@@ -934,6 +933,217 @@ body.cursor-click #cursor-ring {
   transition: transform 0.3s ease;
 }
 .action-link:hover i { transform: translateX(4px); }
+
+/* ── IMAGE LIGHTBOX ──────────────────────────────────────────── */
+#lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+
+  /* Blurred, darkened backdrop */
+  background: rgba(4, 5, 13, 0.80);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+
+  /* Hidden by default — toggled via .open / .closing */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-smooth);
+}
+
+#lightbox-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#lightbox-overlay.closing {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The card that holds the image */
+.lightbox-card {
+  position: relative;
+  max-width: min(90vw, 1100px);
+  max-height: 90vh;
+  width: 100%;
+  background: rgba(12, 15, 30, 0.70);
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 32px 80px rgba(0,0,0,0.75),
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 0 60px rgba(124, 58, 237, 0.12);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  /* Intro animation */
+  transform: scale(0.88) translateY(24px);
+  transition:
+    transform 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity   0.35s var(--ease-smooth);
+  opacity: 0;
+}
+
+#lightbox-overlay.open .lightbox-card {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+#lightbox-overlay.closing .lightbox-card {
+  transform: scale(0.92) translateY(16px);
+  opacity: 0;
+}
+
+/* Top-edge glow accent */
+.lightbox-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--c-violet), var(--c-cyan), var(--c-fuchsia));
+  z-index: 1;
+}
+
+/* Image container */
+.lightbox-img-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #06070f;
+  min-height: 0;
+}
+
+.lightbox-img-wrap img {
+  max-width: 100%;
+  max-height: calc(90vh - 72px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 0;
+}
+
+/* Toolbar strip at the top */
+.lightbox-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(8, 10, 22, 0.60);
+  flex-shrink: 0;
+}
+
+.lightbox-caption {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 120px);
+}
+
+/* Back button */
+.lightbox-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid rgba(124, 58, 237, 0.45);
+  background: rgba(124, 58, 237, 0.10);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-smooth);
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.lightbox-back:hover {
+  background: rgba(124, 58, 237, 0.25);
+  border-color: var(--c-violet);
+  box-shadow: 0 0 18px rgba(124, 58, 237, 0.3);
+  transform: translateX(-3px);
+}
+
+.lightbox-back i {
+  font-size: 0.8rem;
+  color: var(--c-violet);
+  transition: transform 0.25s ease;
+}
+
+.lightbox-back:hover i {
+  transform: translateX(-3px);
+}
+
+/* Make card images look clickable */
+.dummy-img-wide {
+  cursor: pointer;
+}
+
+.dummy-img-wide img {
+  pointer-events: none; /* clicks go to the wrapper */
+}
+
+/* Subtle zoom-in hint on hover */
+.dummy-img-wide::after {
+  content: '\f00e'; /* fa-search-plus */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(124, 58, 237, 0.75);
+  color: #fff;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.25s ease, transform 0.25s var(--ease-spring);
+  pointer-events: none;
+}
+
+.project-banner:hover .dummy-img-wide::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Lock scroll while lightbox open */
+body.lb-open {
+  overflow: hidden;
+}
+
+@media (max-width: 850px) {
+  .lightbox-card {
+    max-width: 98vw;
+    border-radius: var(--radius-md);
+  }
+  .lightbox-toolbar {
+    padding: 0.65rem 0.9rem;
+  }
+  .lightbox-caption {
+    font-size: 0.82rem;
+  }
+}
 
 /* ── SCROLLBAR ───────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; }
@@ -986,7 +1196,7 @@ body.cursor-click #cursor-ring {
   .contact-info { gap: 0.6rem; }
   .contact-info a, .contact-info span { font-size: 0.82rem; }
   .glass-card { padding: 1.25rem 1.25rem; }
-  .dummy-img-wide { height: 180px; }
+  .dummy-img-wide { height: 200px; }
   .section-title { font-size: 1.7rem; }
 }
 
@@ -994,6 +1204,7 @@ body.cursor-click #cursor-ring {
   .gradient-text { font-size: 2rem; }
   .section-title { font-size: 1.5rem; }
   .btn { padding: 0.7rem 1.25rem; font-size: 0.85rem; }
+  .dummy-img-wide { height: 180px; }
 }
 
 /* ── UTILITY CLASSES ─────────────────────────────────────────── */
@@ -1002,4 +1213,154 @@ body.cursor-click #cursor-ring {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* ── PAGE INTRO LOADER ─────────────────────────────────────────── */
+
+/*
+  The loader sits over everything (z-index: 999999).
+  Exit sequence:
+    1. `.shrink-out` — center scales to nothing
+    2. `.lb-exit`    — overlay background dissolves → backdrop blur
+                       then opacity fades to 0 (blur clears as it goes)
+*/
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(0, 0, 0, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  will-change: background, opacity;
+  /* Background dissolves first, then opacity fades (delayed slightly) */
+  transition:
+    background       0.75s var(--ease-smooth),
+    backdrop-filter  0.75s var(--ease-smooth),
+    opacity          0.90s ease 0.15s;
+}
+
+/* Dissolve-to-blur exit state */
+#loader.lb-exit {
+  background: rgba(4, 5, 13, 0);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Center container ── */
+#loader-center {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity;
+}
+
+/* ── SVG Ring ── */
+#loader-ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Start at 12-o'clock so fill goes clockwise from top */
+  transform: rotate(-90deg);
+  overflow: visible;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  /* Multi-layer glow: violet core + cyan halo */
+  filter:
+    drop-shadow(0 0  6px rgba(124, 58, 237, 0.95))
+    drop-shadow(0 0 16px rgba(6,  182, 212, 0.55))
+    drop-shadow(0 0 32px rgba(124, 58, 237, 0.30));
+}
+
+/* Ring becomes visible when ring-in class added */
+#loader-center.ring-in #loader-ring-svg { opacity: 1; }
+
+/* Dim guide track */
+.ring-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 2.5;
+}
+
+/* Animated gradient fill
+   Circumference = 2π × 80 ≈ 502.65
+   dashoffset goes 502.65 → 0 (fills clockwise) */
+.ring-fill {
+  fill: none;
+  stroke: url(#ring-grad);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 502.65;
+  stroke-dashoffset: 502.65;
+}
+
+/* ── Profile Image ── */
+#loader-img-wrap {
+  width: 136px;
+  height: 136px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #08090f;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: scale(0.82);
+  will-change: opacity, transform;
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.05),
+    0 0 24px rgba(124, 58, 237, 0.20);
+}
+
+#loader-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* ── ANIMATION STATES ──────────────────────────────────────────── */
+
+/* State: image fades in */
+#loader-center.img-in #loader-img-wrap {
+  animation: lb-img-in 0.80s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* State: ring fills clockwise */
+#loader-center.ring-in .ring-fill {
+  animation: lb-ring-fill 1.30s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* State: everything shrinks back to nothing */
+#loader-center.shrink-out {
+  animation: lb-shrink 0.60s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+}
+
+@keyframes lb-img-in {
+  0%   { opacity: 0; transform: scale(0.82); }
+  60%  { opacity: 1; transform: scale(1.07); }
+  100% { opacity: 1; transform: scale(1.00); }
+}
+
+@keyframes lb-ring-fill {
+  0%   { stroke-dashoffset: 502.65; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes lb-shrink {
+  0%   { transform: scale(1.00); opacity: 1; }
+  18%  { transform: scale(1.05); opacity: 1; } /* brief swell before collapse */
+  100% { transform: scale(0.04); opacity: 0; }
+}
+
+/* Mobile: ring stays same size */
+@media (max-width: 480px) {
+  #loader-center { width: 160px; height: 160px; }
+  #loader-img-wrap { width: 120px; height: 120px; }
 }

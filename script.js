@@ -3,6 +3,45 @@
    JavaScript: Aurora Canvas | Custom Cursor | Reactive Effects
    ============================================================ */
 
+/* ── PAGE INTRO LOADER ─────────────────────────────────────────────────
+   IIFE — runs immediately when script.js is parsed.
+   The loader HTML is at the top of <body>, so all elements
+   already exist in the DOM when this script tag is reached.
+
+   Animation timeline:
+     300ms  → image fades in  (spring pop)
+     700ms  → ring lights up clockwise
+    ~2000ms → ring fully lit  (700 + 1300ms fill anim)
+    2300ms  → center swells then collapses to nothing
+    2550ms  → overlay dissolves (bg→transparent + blur, then opacity→0)
+    3500ms  → element removed, body.page-loaded added
+————————————————————————————————————————————————————— */
+(function initLoader() {
+  const loader = document.getElementById('loader');
+  const center = document.getElementById('loader-center');
+  if (!loader || !center) return;
+
+  // Phase 1: Portrait image fades in with spring pop
+  setTimeout(() => center.classList.add('img-in'),    300);
+
+  // Phase 2: Ring lights up clockwise from 12 o’clock
+  setTimeout(() => center.classList.add('ring-in'),   700);
+
+  // Phase 3: Brief swell then collapse to nothing
+  // (ring fill completes at ~2000ms; 300ms hold then shrink)
+  setTimeout(() => center.classList.add('shrink-out'), 2300);
+
+  // Phase 4: Overlay dissolves — black bg → transparent+blur → opacity 0
+  // The CSS transition on #loader handles the blur-to-clear reveal
+  setTimeout(() => loader.classList.add('lb-exit'), 2550);
+
+  // Phase 5: Remove from DOM once fully invisible
+  setTimeout(() => {
+    loader.remove();
+    document.body.classList.add('page-loaded');
+  }, 3500);
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ── 1. CUSTOM CURSOR ─────────────────────────────────────── */
@@ -310,7 +349,10 @@ document.addEventListener('DOMContentLoaded', () => {
     threshold: 0.08
   });
 
-  animItems.forEach(item => revealObserver.observe(item));
+  // Delay observation until loader begins dissolving so scroll-reveal
+  // animations fire just as the blurred overlay clears — creating the
+  // "elements light up with blur" effect the user sees.
+  setTimeout(() => animItems.forEach(item => revealObserver.observe(item)), 2800);
 
 
   /* ── 6. CARD MOUSE-REACTIVE GLOW ────────────────────────────── */
@@ -422,5 +464,66 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.5 });
 
   statValues.forEach(v => counterObserver.observe(v));
+
+
+  /* ── 11. IMAGE LIGHTBOX ──────────────────────────────────────── */
+  const lbOverlay  = document.getElementById('lightbox-overlay');
+  const lbImg      = document.getElementById('lightbox-img');
+  const lbCaption  = document.getElementById('lightbox-caption');
+  const lbBackBtn  = document.getElementById('lightbox-back-btn');
+
+  let lbCloseTimer = null;
+  const CLOSE_DURATION = 380; // ms — must match CSS transition
+
+  function openLightbox(src, alt) {
+    // Populate content
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lbCaption.textContent = alt || '';
+
+    // Lock scroll
+    document.body.classList.add('lb-open');
+
+    // Trigger open animation
+    lbOverlay.classList.remove('closing');
+    lbOverlay.classList.add('open');
+  }
+
+  function closeLightbox() {
+    if (lbCloseTimer) return; // already closing
+    lbOverlay.classList.add('closing');
+    lbOverlay.classList.remove('open');
+    document.body.classList.remove('lb-open');
+
+    lbCloseTimer = setTimeout(() => {
+      lbOverlay.classList.remove('closing');
+      lbImg.src = '';
+      lbCaption.textContent = '';
+      lbCloseTimer = null;
+    }, CLOSE_DURATION);
+  }
+
+  // Click on any .dummy-img-wide to open
+  document.querySelectorAll('.dummy-img-wide').forEach(wrap => {
+    wrap.addEventListener('click', () => {
+      const img = wrap.querySelector('img');
+      if (img) openLightbox(img.src, img.alt);
+    });
+  });
+
+  // Back button
+  lbBackBtn.addEventListener('click', closeLightbox);
+
+  // Click backdrop (outside the card) to close
+  lbOverlay.addEventListener('click', e => {
+    if (e.target === lbOverlay) closeLightbox();
+  });
+
+  // Escape key to close
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && lbOverlay.classList.contains('open')) {
+      closeLightbox();
+    }
+  });
 
 });
