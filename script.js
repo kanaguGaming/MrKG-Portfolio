@@ -100,14 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  /* ── 2. AURORA CANVAS — BLUE-ONLY SCROLL PATTERN SYSTEM ─────── */
+  /* ── 2. GRADIENT WAVE BACKGROUND ────────────────────────────── */
   //
-  //  COLOR:   Locked to blue / cyan / indigo tones (hue 195–232).
-  //           Color NEVER changes.
-  //
-  //  PATTERN: On scroll the SIZE, POSITION, and ARRANGEMENT of the
-  //           5 gradient orbs morphs into a totally different shape
-  //           for each section. Brightness is high & visible.
+  //  Six sine-wave layers flow across the canvas at different speeds,
+  //  frequencies, and phases. Each layer is a filled path that peaks
+  //  in colour at the wave crest and fades to transparent below,
+  //  creating the appearance of glowing aurora-style wave bands.
   //
   const canvas = document.getElementById('aurora-canvas');
   if (canvas) {
@@ -120,173 +118,78 @@ document.addEventListener('DOMContentLoaded', () => {
       H = canvas.height = window.innerHeight;
     });
 
-    /* ─────────────────────────────────────────────────────────────
-       SCROLL PATTERN TABLE — each row = one section's orb layout
-       x, y : centre position (0–1 of screen width/height)
-       r    : radius (fraction of the shorter screen dimension)
-       a    : opacity / brightness  ← boosted for visibility
-    ─────────────────────────────────────────────────────────────── */
-    const PATTERNS = [
-
-      // 0 · HOME — Two giant orbs anchored top-left & bottom-right,
-      //             small bright core in centre
-      [
-        { x: 0.02, y: 0.02, r: 0.60, a: 0.60 },   // huge top-left
-        { x: 0.98, y: 0.95, r: 0.55, a: 0.55 },   // huge bottom-right
-        { x: 0.50, y: 0.50, r: 0.22, a: 0.45 },   // bright centre
-        { x: 0.82, y: 0.12, r: 0.20, a: 0.35 },   // accent top-right
-        { x: 0.14, y: 0.85, r: 0.20, a: 0.35 },   // accent bottom-left
-      ],
-
-      // 1 · EDUCATION — Diagonal stripe: top-right → bottom-left
-      [
-        { x: 0.92, y: 0.04, r: 0.52, a: 0.58 },   // top-right anchor
-        { x: 0.64, y: 0.32, r: 0.35, a: 0.50 },   // upper-mid diagonal
-        { x: 0.36, y: 0.62, r: 0.35, a: 0.50 },   // lower-mid diagonal
-        { x: 0.08, y: 0.94, r: 0.52, a: 0.58 },   // bottom-left anchor
-        { x: 0.50, y: 0.50, r: 0.15, a: 0.38 },   // centre spark
-      ],
-
-      // 2 · WORK — Equilateral triangle: top-left, top-right, bottom-centre
-      [
-        { x: 0.05, y: 0.06, r: 0.48, a: 0.56 },   // top-left
-        { x: 0.95, y: 0.06, r: 0.48, a: 0.56 },   // top-right
-        { x: 0.50, y: 0.94, r: 0.52, a: 0.58 },   // bottom centre
-        { x: 0.50, y: 0.38, r: 0.18, a: 0.38 },   // inner centre
-        { x: 0.50, y: 0.62, r: 0.13, a: 0.30 },   // lower spark
-      ],
-
-      // 3 · SKILLS — Single massive central bloom (concentric rings)
-      [
-        { x: 0.50, y: 0.50, r: 0.75, a: 0.48 },   // vast outer halo
-        { x: 0.50, y: 0.50, r: 0.45, a: 0.55 },   // mid ring
-        { x: 0.50, y: 0.50, r: 0.22, a: 0.65 },   // bright inner core
-        { x: 0.20, y: 0.20, r: 0.18, a: 0.32 },   // corner spark
-        { x: 0.80, y: 0.80, r: 0.18, a: 0.32 },   // corner spark
-      ],
-
-      // 4 · PROJECTS — Horizontal glowing band across middle
-      [
-        { x: 0.06, y: 0.50, r: 0.46, a: 0.58 },   // left anchor
-        { x: 0.50, y: 0.50, r: 0.40, a: 0.52 },   // centre
-        { x: 0.94, y: 0.50, r: 0.46, a: 0.58 },   // right anchor
-        { x: 0.28, y: 0.18, r: 0.22, a: 0.35 },   // top-left accent
-        { x: 0.72, y: 0.82, r: 0.22, a: 0.35 },   // bottom-right accent
-      ],
-
-      // 5 · AWARDS — Four corners + blazing centre star
-      [
-        { x: 0.06, y: 0.06, r: 0.40, a: 0.52 },   // top-left corner
-        { x: 0.94, y: 0.06, r: 0.40, a: 0.52 },   // top-right corner
-        { x: 0.06, y: 0.94, r: 0.40, a: 0.52 },   // bottom-left corner
-        { x: 0.94, y: 0.94, r: 0.40, a: 0.52 },   // bottom-right corner
-        { x: 0.50, y: 0.50, r: 0.30, a: 0.65 },   // centre blazing star
-      ],
+    // ── Wave layer definitions ───────────────────────────────────
+    // baseY  : vertical centre of wave as a fraction of canvas H
+    // amp    : sine amplitude as a fraction of H
+    // freq   : spatial frequency in radians per pixel
+    // phase  : starting phase (radians) — staggered for variety
+    // speed  : phase advance per millisecond (controls flow speed)
+    // hue    : CSS hue (locked to blue–violet–cyan range)
+    // sat    : saturation %
+    // alpha  : peak opacity at the wave crest
+    const WAVES = [
+      { baseY: 0.88, amp: 0.08, freq: 0.0016, phase: 0.00, speed: 0.000200, hue: 215, sat: 88, alpha: 0.40 },
+      { baseY: 0.74, amp: 0.07, freq: 0.0022, phase: 1.57, speed: 0.000320, hue: 200, sat: 92, alpha: 0.32 },
+      { baseY: 0.60, amp: 0.10, freq: 0.0014, phase: 3.14, speed: 0.000165, hue: 228, sat: 84, alpha: 0.28 },
+      { baseY: 0.46, amp: 0.07, freq: 0.0027, phase: 4.71, speed: 0.000400, hue: 250, sat: 80, alpha: 0.22 },
+      { baseY: 0.31, amp: 0.08, freq: 0.0018, phase: 0.78, speed: 0.000255, hue: 196, sat: 90, alpha: 0.18 },
+      { baseY: 0.16, amp: 0.06, freq: 0.0021, phase: 2.36, speed: 0.000290, hue: 218, sat: 82, alpha: 0.13 },
     ];
 
-    // Fixed blue/cyan/indigo hue per orb — never changes
-    const BLUE_HUES = [218, 200, 232, 208, 222];
-
-    // Live lerped orb state — starts at HOME pattern
-    const orbs = PATTERNS[0].map((p, i) => ({
-      tx: p.x, ty: p.y, tr: p.r, ta: p.a,  // targets
-      cx: p.x, cy: p.y, cr: p.r, ca: p.a,  // current (displayed)
-      hue: BLUE_HUES[i],
-      phase: i * 1.15,
-      speed: 0.000045 + i * 0.000008,
-    }));
-
-    // ── Scroll state ────────────────────────────────────────────
-    let fromIdx = 0, toIdx = 0, blendT = 0;
-
-    function onScroll() {
-      const secs  = document.querySelectorAll('.scroll-section');
-      const total = secs.length;
-      let closestIdx = 0, closestDist = Infinity;
-
-      secs.forEach((sec, i) => {
-        const dist = Math.abs(sec.getBoundingClientRect().top - window.innerHeight * 0.38);
-        if (dist < closestDist) { closestDist = dist; closestIdx = i; }
-      });
-
-      const cur  = secs[closestIdx];
-      const next = secs[Math.min(closestIdx + 1, total - 1)];
-      const prev = secs[Math.max(closestIdx - 1, 0)];
-
-      if (cur.getBoundingClientRect().top > window.innerHeight * 0.38 && closestIdx > 0) {
-        const fromTop = prev.getBoundingClientRect().top;
-        const toTop   = cur.getBoundingClientRect().top;
-        const span    = toTop - fromTop;
-        fromIdx = Math.max(closestIdx - 1, 0);
-        toIdx   = closestIdx;
-        blendT  = span ? Math.min(Math.max((window.innerHeight * 0.38 - fromTop) / span, 0), 1) : 1;
-      } else {
-        const fromTop = cur.getBoundingClientRect().top;
-        const toTop   = next.getBoundingClientRect().top;
-        const span    = toTop - fromTop;
-        fromIdx = closestIdx;
-        toIdx   = Math.min(closestIdx + 1, total - 1);
-        blendT  = span ? Math.min(Math.max((window.innerHeight * 0.38 - fromTop) / span, 0), 1) : 0;
-      }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    const lerp = (a, b, t) => a + (b - a) * t;
-    const ORB_SPEED = 0.06; // how fast orbs move toward target pattern
-
-    // ── Draw loop ───────────────────────────────────────────────
     let lastTime = 0;
-    function drawAurora(ts) {
-      const dt = Math.min(ts - lastTime, 50);
+
+    function drawWaves(ts) {
+      const dt = Math.min(ts - lastTime, 50); // cap delta to avoid jumps after tab switch
       lastTime = ts;
+
       ctx.clearRect(0, 0, W, H);
 
-      const fp = PATTERNS[Math.min(fromIdx, PATTERNS.length - 1)];
-      const tp = PATTERNS[Math.min(toIdx,   PATTERNS.length - 1)];
+      // Paint from bottommost wave upward (painter's algorithm).
+      // Waves are already sorted bottom → top by baseY descending.
+      const ordered = [...WAVES].sort((a, b) => b.baseY - a.baseY);
 
-      orbs.forEach((orb, i) => {
-        orb.phase += orb.speed * dt;
+      ordered.forEach(wave => {
+        // Advance phase — this drives the horizontal flow
+        wave.phase += wave.speed * dt;
 
-        // Set targets = blend of two section patterns
-        orb.tx = lerp(fp[i].x, tp[i].x, blendT);
-        orb.ty = lerp(fp[i].y, tp[i].y, blendT);
-        orb.tr = lerp(fp[i].r, tp[i].r, blendT);
-        orb.ta = lerp(fp[i].a, tp[i].a, blendT);
+        const peakY = wave.baseY * H;
+        const ampPx = wave.amp * H;
 
-        // Smoothly chase targets
-        orb.cx = lerp(orb.cx, orb.tx, ORB_SPEED);
-        orb.cy = lerp(orb.cy, orb.ty, ORB_SPEED);
-        orb.cr = lerp(orb.cr, orb.tr, ORB_SPEED);
-        orb.ca = lerp(orb.ca, orb.ta, ORB_SPEED);
-
-        // Gentle drift on top of pattern position
-        const driftX = Math.sin(orb.phase * 0.8 + i) * 0.025;
-        const driftY = Math.cos(orb.phase * 0.6 + i) * 0.025;
-
-        const px = (orb.cx + driftX) * W;
-        const py = (orb.cy + driftY) * H;
-        const r  = orb.cr * Math.min(W, H);
-
-        // Radial gradient — blue tones only, boosted brightness
-        const g = ctx.createRadialGradient(px, py, 0, px, py, r);
-        g.addColorStop(0,    `hsla(${orb.hue}, 90%, 58%, ${orb.ca})`);
-        g.addColorStop(0.30, `hsla(${orb.hue}, 82%, 42%, ${(orb.ca * 0.60).toFixed(3)})`);
-        g.addColorStop(0.65, `hsla(${orb.hue}, 72%, 28%, ${(orb.ca * 0.22).toFixed(3)})`);
-        g.addColorStop(1,    `hsla(${orb.hue}, 60%, 16%, 0.000)`);
-
-        ctx.fillStyle = g;
+        // ── Build the filled wave path ─────────────────────────
         ctx.beginPath();
-        ctx.arc(px, py, r, 0, Math.PI * 2);
+
+        // Start at left edge at wave's current y
+        ctx.moveTo(0, peakY + ampPx * Math.sin(wave.phase));
+
+        // Trace sine curve across the full width (step every 4px for perf)
+        for (let x = 4; x <= W; x += 4) {
+          ctx.lineTo(x, peakY + ampPx * Math.sin(x * wave.freq + wave.phase));
+        }
+
+        // Close path down to the canvas bottom-left corner
+        ctx.lineTo(W, H);
+        ctx.lineTo(0, H);
+        ctx.closePath();
+
+        // ── Vertical gradient: bright at crest, transparent below ─
+        // gradTop is slightly above the peak so the colour fully fades in
+        const gradTop = peakY - ampPx * 1.8;
+        const grad = ctx.createLinearGradient(0, gradTop, 0, H);
+        grad.addColorStop(0.00, `hsla(${wave.hue}, ${wave.sat}%, 62%, 0)`);
+        grad.addColorStop(0.10, `hsla(${wave.hue}, ${wave.sat}%, 62%, ${wave.alpha})`);
+        grad.addColorStop(0.38, `hsla(${wave.hue}, ${wave.sat}%, 54%, ${+(wave.alpha * 0.28).toFixed(3)})`);
+        grad.addColorStop(1.00, `hsla(${wave.hue}, ${wave.sat}%, 44%, 0)`);
+
+        ctx.fillStyle = grad;
         ctx.fill();
       });
 
-      requestAnimationFrame(drawAurora);
+      requestAnimationFrame(drawWaves);
     }
 
-    requestAnimationFrame(drawAurora);
+    requestAnimationFrame(drawWaves);
   }
+
 
 
   /* ── 3. NAVBAR SCROLL EFFECT ────────────────────────────────── */

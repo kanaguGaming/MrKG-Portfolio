@@ -168,68 +168,8 @@ body.cursor-click #cursor-ring {
   mix-blend-mode: screen;
 }
 
-/* Floating ambient orbs */
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0;
-  animation: orbFloat var(--dur, 20s) var(--delay, 0s) infinite alternate ease-in-out;
-}
+/* (Ambient orbs replaced by canvas-driven gradient waves — see script.js §2) */
 
-.orb-1 {
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, #3b0764 0%, #1e1b4b 60%, transparent 100%);
-  top: -15%; left: -10%;
-  --dur: 22s; --delay: 0s;
-  animation-name: orbFloat1;
-}
-.orb-2 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, #0c4a6e 0%, #0f766e 60%, transparent 100%);
-  bottom: -10%; right: -5%;
-  --dur: 26s; --delay: -6s;
-  animation-name: orbFloat2;
-}
-.orb-3 {
-  width: 450px; height: 450px;
-  background: radial-gradient(circle, #701a75 0%, #1e1b4b 60%, transparent 100%);
-  top: 40%; left: 35%;
-  --dur: 30s; --delay: -12s;
-  animation-name: orbFloat3;
-}
-.orb-4 {
-  width: 350px; height: 350px;
-  background: radial-gradient(circle, #065f46 0%, #1e3a5f 60%, transparent 100%);
-  top: 10%; right: 15%;
-  --dur: 18s; --delay: -3s;
-  animation-name: orbFloat2;
-  opacity: 0;
-}
-.orb-5 {
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, #7c2d12 0%, #4c0519 60%, transparent 100%);
-  bottom: 20%; left: 5%;
-  --dur: 24s; --delay: -8s;
-  animation-name: orbFloat1;
-  opacity: 0;
-}
-
-@keyframes orbFloat1 {
-  0%   { opacity: 0.25; transform: translate(0,   0)   scale(1); }
-  50%  { opacity: 0.35; transform: translate(80px, 60px) scale(1.08); }
-  100% { opacity: 0.22; transform: translate(160px, -40px) scale(1.12); }
-}
-@keyframes orbFloat2 {
-  0%   { opacity: 0.22; transform: translate(0,   0)   scale(1); }
-  50%  { opacity: 0.30; transform: translate(-60px, -80px) scale(1.1); }
-  100% { opacity: 0.20; transform: translate(-130px, 50px) scale(0.95); }
-}
-@keyframes orbFloat3 {
-  0%   { opacity: 0.18; transform: translate(0,   0)   scale(1); }
-  50%  { opacity: 0.28; transform: translate(40px, -50px) scale(1.06); }
-  100% { opacity: 0.15; transform: translate(-80px, 80px) scale(1.14); }
-}
 
 /* Grid noise texture */
 .noise-overlay {
