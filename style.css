@@ -358,6 +358,19 @@ body.cursor-click #cursor-ring {
     transparent
   );
 }
+.github-btn {
+  background: linear-gradient(135deg, #4b5563 0%, #1f2937 50%, #030712 100%);
+  background-size: 200% auto;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: shimmer 3s linear infinite;
+}
+
+.github-btn:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.6);
+}
 
 /* ── HERO SECTION ────────────────────────────────────────────── */
 .hero {
