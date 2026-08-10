@@ -100,103 +100,128 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  /* ── 2. GRADIENT WAVE BACKGROUND ────────────────────────────── */
-  //
-  //  Six sine-wave layers flow across the canvas at different speeds,
-  //  frequencies, and phases. Each layer is a filled path that peaks
-  //  in colour at the wave crest and fades to transparent below,
-  //  creating the appearance of glowing aurora-style wave bands.
-  //
+  /* ── 2. HONEYCOMB BACKGROUND ───────────────────────────────────────── */
   const canvas = document.getElementById('aurora-canvas');
   if (canvas) {
     const ctx = canvas.getContext('2d');
-    let W = canvas.width  = window.innerWidth;
+    let W = canvas.width = window.innerWidth;
     let H = canvas.height = window.innerHeight;
 
     window.addEventListener('resize', () => {
-      W = canvas.width  = window.innerWidth;
+      W = canvas.width = window.innerWidth;
       H = canvas.height = window.innerHeight;
+      initHexGrid();
     });
 
-    // ── Wave layer definitions ───────────────────────────────────
-    // baseY  : vertical centre of wave as a fraction of canvas H
-    // amp    : sine amplitude as a fraction of H
-    // freq   : spatial frequency in radians per pixel
-    // phase  : starting phase (radians) — staggered for variety
-    // speed  : phase advance per millisecond (controls flow speed)
-    // hue    : CSS hue (locked to blue–violet–cyan range)
-    // sat    : saturation %
-    // alpha  : peak opacity at the wave crest
-    const WAVES = [
-      { baseY: 0.88, amp: 0.08, freq: 0.0016, phase: 0.00, speed: 0.000200, hue: 215, sat: 88, alpha: 0.40 },
-      { baseY: 0.74, amp: 0.07, freq: 0.0022, phase: 1.57, speed: 0.000320, hue: 200, sat: 92, alpha: 0.32 },
-      { baseY: 0.60, amp: 0.10, freq: 0.0014, phase: 3.14, speed: 0.000165, hue: 228, sat: 84, alpha: 0.28 },
-      { baseY: 0.46, amp: 0.07, freq: 0.0027, phase: 4.71, speed: 0.000400, hue: 250, sat: 80, alpha: 0.22 },
-      { baseY: 0.31, amp: 0.08, freq: 0.0018, phase: 0.78, speed: 0.000255, hue: 196, sat: 90, alpha: 0.18 },
-      { baseY: 0.16, amp: 0.06, freq: 0.0021, phase: 2.36, speed: 0.000290, hue: 218, sat: 82, alpha: 0.13 },
-    ];
+    const hexRadius = 40;
+    const hexWidth = Math.sqrt(3) * hexRadius;
+    const hexHeight = 2 * hexRadius;
+    const yOffset = hexHeight * 0.75;
+    let hexagons = [];
 
-    let lastTime = 0;
+    class Hexagon {
+      constructor(x, y, row, col) {
+        this.x = x;
+        this.y = y;
+        this.row = row;
+        this.col = col;
+        // Randomize initial animation state
+        this.baseOpacity = Math.random() * 0.1;
+        this.pulseSpeed = 0.005 + Math.random() * 0.01;
+        this.phase = Math.random() * Math.PI * 2;
+        this.floatSpeed = 0.5 + Math.random() * 1;
+        this.floatOffset = Math.random() * Math.PI * 2;
+      }
 
-    function drawWaves(ts) {
-      const dt = Math.min(ts - lastTime, 50); // cap delta to avoid jumps after tab switch
-      lastTime = ts;
+      draw(ctx, time) {
+        // Dynamic opacity pulsing
+        const opacity = this.baseOpacity + (Math.sin(time * this.pulseSpeed + this.phase) * 0.08);
+        if (opacity <= 0.01) return; // Skip drawing very faint hexes for performance
+        
+        // Floating effect
+        const currentY = this.y + Math.sin(time * 0.002 * this.floatSpeed + this.floatOffset) * 10;
 
-      ctx.clearRect(0, 0, W, H);
-
-      // Paint from bottommost wave upward (painter's algorithm).
-      // Waves are already sorted bottom → top by baseY descending.
-      const ordered = [...WAVES].sort((a, b) => b.baseY - a.baseY);
-
-      ordered.forEach(wave => {
-        // Advance phase — this drives the horizontal flow
-        wave.phase += wave.speed * dt;
-
-        const peakY = wave.baseY * H;
-        const ampPx = wave.amp * H;
-
-        // ── Build the filled wave path ─────────────────────────
         ctx.beginPath();
-
-        // Start at left edge at wave's current y
-        ctx.moveTo(0, peakY + ampPx * Math.sin(wave.phase));
-
-        // Trace sine curve across the full width (step every 4px for perf)
-        for (let x = 4; x <= W; x += 4) {
-          ctx.lineTo(x, peakY + ampPx * Math.sin(x * wave.freq + wave.phase));
+        for (let i = 0; i < 6; i++) {
+          const angle = (Math.PI / 3) * i - (Math.PI / 6);
+          const px = this.x + hexRadius * Math.cos(angle);
+          const py = currentY + hexRadius * Math.sin(angle);
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
         }
-
-        // Close path down to the canvas bottom-left corner
-        ctx.lineTo(W, H);
-        ctx.lineTo(0, H);
         ctx.closePath();
 
-        // ── Vertical gradient: bright at crest, transparent below ─
-        // gradTop is slightly above the peak so the colour fully fades in
-        const gradTop = peakY - ampPx * 1.8;
-        const grad = ctx.createLinearGradient(0, gradTop, 0, H);
-        grad.addColorStop(0.00, `hsla(${wave.hue}, ${wave.sat}%, 62%, 0)`);
-        grad.addColorStop(0.10, `hsla(${wave.hue}, ${wave.sat}%, 62%, ${wave.alpha})`);
-        grad.addColorStop(0.38, `hsla(${wave.hue}, ${wave.sat}%, 54%, ${+(wave.alpha * 0.28).toFixed(3)})`);
-        grad.addColorStop(1.00, `hsla(${wave.hue}, ${wave.sat}%, 44%, 0)`);
-
-        ctx.fillStyle = grad;
-        ctx.fill();
-      });
-
-      requestAnimationFrame(drawWaves);
+        // Stroke styling
+        ctx.strokeStyle = `rgba(0, 243, 255, ${opacity})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        
+        // Sometimes fill some hexagons
+        if (opacity > 0.15) {
+            ctx.fillStyle = `rgba(0, 102, 255, ${opacity * 0.2})`;
+            ctx.fill();
+        }
+      }
     }
 
-    requestAnimationFrame(drawWaves);
+    function initHexGrid() {
+      hexagons = [];
+      const cols = Math.ceil(W / hexWidth) + 1;
+      const rows = Math.ceil(H / yOffset) + 1;
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          let x = col * hexWidth;
+          let y = row * yOffset;
+          // Offset odd rows
+          if (row % 2 !== 0) {
+            x += hexWidth / 2;
+          }
+          // Only add a subset of hexagons to make it look "floating" and techy
+          if (Math.random() > 0.3) {
+             hexagons.push(new Hexagon(x, y, row, col));
+          }
+        }
+      }
+    }
+
+    initHexGrid();
+
+    function drawHoneycomb(time) {
+      ctx.clearRect(0, 0, W, H);
+      
+      hexagons.forEach(hex => hex.draw(ctx, time));
+
+      requestAnimationFrame(drawHoneycomb);
+    }
+
+    requestAnimationFrame(drawHoneycomb);
   }
 
 
 
-  /* ── 3. NAVBAR SCROLL EFFECT ────────────────────────────────── */
+  /* ── 3. NAVBAR SCROLL EFFECT & MOBILE MENU ──────────────────── */
   const navbar = document.querySelector('.navbar');
+  const mobileMenuBtn = document.getElementById('mobile-menu');
+  const navLinksContainer = document.getElementById('nav-links');
+
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 30);
   }, { passive: true });
+
+  if (mobileMenuBtn && navLinksContainer) {
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinksContainer.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    const links = navLinksContainer.querySelectorAll('a');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        navLinksContainer.classList.remove('active');
+      });
+    });
+  }
 
 
   /* ── 4. SCROLLSPY (Active Nav Highlight) ─────────────────────── */
@@ -411,6 +436,16 @@ document.addEventListener('DOMContentLoaded', () => {
     wrap.addEventListener('click', () => {
       const img = wrap.querySelector('img');
       if (img) openLightbox(img.src, img.alt);
+    });
+  });
+
+  // Click on text links to open lightbox (for local images)
+  document.querySelectorAll('.lightbox-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const src = link.getAttribute('data-img');
+      const alt = link.getAttribute('data-alt') || '';
+      if (src) openLightbox(src, alt);
     });
   });
 

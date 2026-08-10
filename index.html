@@ -28,10 +28,10 @@
             <svg id="loader-ring-svg" viewBox="0 0 176 176" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%"   stop-color="#7c3aed"/>
-                        <stop offset="35%"  stop-color="#2563eb"/>
-                        <stop offset="65%"  stop-color="#06b6d4"/>
-                        <stop offset="100%" stop-color="#d946ef"/>
+                        <stop offset="0%"   stop-color="#0066ff"/>
+                        <stop offset="35%"  stop-color="#00f3ff"/>
+                        <stop offset="65%"  stop-color="#00d4ff"/>
+                        <stop offset="100%" stop-color="#0047ff"/>
                     </linearGradient>
                 </defs>
                 <!-- Dim track ring -->
@@ -61,16 +61,23 @@
     </div>
 
 
-    <!-- ── FLOATING GLASS NAVBAR ─────────────────────────────── -->
     <nav class="navbar" id="navbar">
-        <div class="nav-brand">Mr<span class="dot">.</span>KG</div>
-        <ul class="nav-links">
+        <div class="navbar-header">
+            <div class="nav-brand">Mr<span class="dot">.</span>KG</div>
+            <button class="menu-toggle" id="mobile-menu" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <ul class="nav-links" id="nav-links">
             <li><a href="#home"      class="tab-btn active"><i class="fas fa-house"></i> Home</a></li>
+            <li><a href="#about"     class="tab-btn"><i class="fas fa-user"></i> About</a></li>
             <li><a href="#education" class="tab-btn"><i class="fas fa-graduation-cap"></i> Education</a></li>
             <li><a href="#work"      class="tab-btn"><i class="fas fa-briefcase"></i> Experience</a></li>
             <li><a href="#skills"    class="tab-btn"><i class="fas fa-code"></i> Skills</a></li>
             <li><a href="#projects"  class="tab-btn"><i class="fas fa-rocket"></i> Projects</a></li>
             <li><a href="#awards"    class="tab-btn"><i class="fas fa-trophy"></i> Awards</a></li>
+            <li><a href="#certifications" class="tab-btn"><i class="fas fa-certificate"></i> Certs</a></li>
+            <li><a href="#contact"   class="tab-btn"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
     </nav>
 
@@ -101,8 +108,8 @@
                     <a href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJZcRPScKpqsqwVcDZNqnjPwMpWVkWpnVrqjfcbvFDThqWzxBHMwhZznccJrPNlDmPJsbTg">
                         <i class="fas fa-envelope"></i> kanagubry@gmail.com
                     </a>
-                    <a href="tel:+9189402****">
-                        <i class="fas fa-phone"></i> +91 89402****
+                    <a href="tel:+918940293794">
+                        <i class="fas fa-phone"></i> +91 8940293794
                     </a>
                     <span class="location">
                         <i class="fas fa-map-marker-alt"></i> Chengalpattu, TN
@@ -114,12 +121,41 @@
                         <i class="fab fa-linkedin"></i> Connect on LinkedIn
                     </a>
                     <a href="https://github.com/kanaguGaming" target="_blank" class="btn github-btn">
-                        <i class="fab fa-github"></i> View on GitHub
+                        <i class="fab fa-github"></i> Connect on GitHub
                     </a>
                     <a href="Kanaga_Prasath_Resume.pdf" target="_blank" class="btn outline-btn">
                         <i class="fas fa-file-pdf"></i> View Resume
                     </a>
                 </div>
+            </div>
+        </section>
+
+        <!-- ────── ABOUT ME ────── -->
+        <section id="about" class="scroll-section">
+            <div class="section-header animate-item">
+                <h2 class="section-title">About Me</h2>
+                <div class="line"></div>
+            </div>
+            
+            <div class="card-stack" style="flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+                <div class="glass-card animate-item" style="flex: 1; min-width: 250px; text-align: center; padding: 1.5rem;">
+                     <h3 style="justify-content: center;"><i class="fas fa-map-marker-alt"></i> Location</h3>
+                     <h4 style="margin-top: 0.5rem;">Chengalpattu, TN</h4>
+                </div>
+                <div class="glass-card animate-item" style="flex: 1; min-width: 250px; text-align: center; padding: 1.5rem;">
+                     <h3 style="justify-content: center;"><i class="fas fa-university"></i> College</h3>
+                     <h4 style="margin-top: 0.5rem;">Adhi College of Engineering</h4>
+                </div>
+                <div class="glass-card animate-item" style="flex: 1; min-width: 250px; text-align: center; padding: 1.5rem;">
+                     <h3 style="justify-content: center;"><i class="fas fa-star"></i> Grades</h3>
+                     <h4 style="margin-top: 0.5rem; color: var(--c-amber); font-weight: 700;">8.1 CGPA</h4>
+                </div>
+            </div>
+            
+            <div class="glass-card animate-item">
+                <p class="intro-text" style="text-align: left; margin: 0; max-width: 100%;">
+                    I am a highly motivated Full Stack Developer and IoT Engineer with a strong passion for blending software intelligence with hardware execution. Continuously learning and building, I aim to push the boundaries of innovation and create impactful, real-world solutions.
+                </p>
             </div>
         </section>
 
@@ -265,10 +301,8 @@
                         <span class="tag">HTML / CSS / JS</span>
                         <span class="tag">Embedded C</span>
                         <span class="tag">Java</span>
-                        <span class="tag">MySQL</span>
                     </div>
                 </div>
-
                 <div class="glass-card animate-item">
                     <h3><i class="fas fa-brain"></i> Development &amp; AI</h3>
                     <h4>I have experience in web development, data analysis, and AI/ML integration. I am proficient in using frameworks like Flask and FastAPI for backend development, and I have hands-on experience with machine learning libraries and tools.</h4>
@@ -277,8 +311,6 @@
                         <span class="tag">FastAPI</span>
                         <span class="tag">Pandas</span>
                         <span class="tag">Streamlit</span>
-                        <span class="tag">MongoDB</span>
-                        <span class="tag">Firebase</span>
                         <span class="tag">OpenCV</span>
                         <span class="tag">CNN</span>
                         <span class="tag">NLP</span>
@@ -286,7 +318,25 @@
                         <span class="tag">RAG</span>
                     </div>
                 </div>
-
+                <div class="glass-card animate-item">
+                    <h3><i class="fas fa-terminal"></i> Database</h3>
+                    <h4>I'm having hands-on experience in Mysql, MongoDB and Firebase</h4>
+                    <div class="tags">
+                        <span class="tag">My SQL</span>
+                        <span class="tag">MongoDB</span>
+                        <span class="tag">Firebase</span>
+                    </div>
+                </div>
+                <div class="glass-card animate-item">
+                    <h3><i class="fas fa-terminal"></i> Development Tools</h3>
+                    <h4>I'm having hands-on experience in development tools like VS Code, Git, Github and Canva</h4>
+                    <div class="tags">
+                        <span class="tag">VS Code</span>
+                        <span class="tag">Git</span>
+                        <span class="tag">Github</span>
+                        <span class="tag">canva</span>
+                    </div>
+                </div>
                 <div class="glass-card animate-item">
                     <h3><i class="fas fa-microchip"></i> IoT &amp; Hardware</h3>
                     <h4>I have experience with IoT development and hardware integration, including working with microcontrollers and sensors.</h4>
@@ -592,7 +642,156 @@
             </div>
         </section>
 
+        <!-- ────── CERTIFICATIONS ────── -->
+        <section id="certifications" class="scroll-section">
+            <div class="section-header animate-item">
+                <h2 class="section-title">Certifications</h2>
+                <div class="line"></div>
+            </div>
+            <div class="card-stack">
+
+                <!-- Add your certificates here later -->
+                <div class="glass-card animate-item">
+                    <div class="card-top">
+                        <h3><i class="fas fa-certificate"></i> Oracle Cloud Infrastructure Foundations</h3>
+                        <span class="badge date-badge">April 2025</span>
+                    </div>
+                    <h4>Oracle</h4>
+                    <p class="award-desc"><i class="fas fa-check-circle"></i>Learned about Oracle Cloud Infrastructure</p>
+                    <a href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=22B8AAFDF6D19A04A47763A3EB4872D48F81292F807BED50CA67C61121371CF2" target="_blank" class="action-link" style="margin-top: 1rem;">
+                        View Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="glass-card animate-item">
+                    <div class="card-top">
+                        <h3><i class="fas fa-certificate"></i> 7 day Design Thinking Course</h3>
+                        <span class="badge date-badge">April 2026</span>
+                    </div>
+                    <h4>TurnIP</h4>
+                    <p class="award-desc"><i class="fas fa-check-circle"></i>Learned about Design Thinking</p>
+                    <!-- Using lightbox-link class and data-img attribute to open local images in the viewer -->
+                    <a href="" data-img="cert/cert1.jpeg" data-alt="Placeholder Certification 2" class="action-link lightbox-link" style="margin-top: 1rem;">
+                        View Certificate <i class="fas fa-search-plus"></i>
+                    </a>
+                </div>
+
+                <div class="glass-card animate-item">
+                    <div class="card-top">
+                        <h3><i class="fas fa-certificate"></i> Fundamendals of Object oriented Programming</h3>
+                        <span class="badge date-badge">April 2026</span>
+                    </div>
+                    <h4>NPTEL</h4>
+                    <p class="award-desc"><i class="fas fa-check-circle"></i>Learned about Design Thinking</p>
+                    <!-- Using lightbox-link class and data-img attribute to open local images in the viewer -->
+                    <a href="" data-img="cert/cert2.jpeg" data-alt="Placeholder Certification 2" class="action-link lightbox-link" style="margin-top: 1rem;">
+                        View Certificate <i class="fas fa-search-plus"></i>
+                    </a>
+                </div>
+
+                <div class="glass-card animate-item">
+                    <div class="card-top">
+                        <h3><i class="fas fa-certificate"></i> 3 day agentic AI course</h3>
+                        <span class="badge date-badge">May 2026</span>
+                    </div>
+                    <h4>TurnIP</h4>
+                    <p class="award-desc"><i class="fas fa-check-circle"></i>Learned about Design Thinking</p>
+                    <!-- Using lightbox-link class and data-img attribute to open local images in the viewer -->
+                    <a href="" data-img="cert/cert3.jpeg" data-alt="Placeholder Certification 2" class="action-link lightbox-link" style="margin-top: 1rem;">
+                        View Certificate <i class="fas fa-search-plus"></i>
+                    </a>
+                </div>
+
+                <div class="glass-card animate-item">
+                    <div class="card-top">
+                        <h3><i class="fas fa-certificate"></i> 5th International conference</h3>
+                        <span class="badge date-badge">March 2026</span>
+                    </div>
+                    <h4>ICASET - IFERP</h4>
+                    <p class="award-desc"><i class="fas fa-check-circle"></i>Learned about Design Thinking</p>
+                    <!-- Using lightbox-link class and data-img attribute to open local images in the viewer -->
+                    <a href="" data-img="cert/cert4.jpeg" data-alt="Placeholder Certification 2" class="action-link lightbox-link" style="margin-top: 1rem;">
+                        View Certificate <i class="fas fa-search-plus"></i>
+                    </a>
+                </div>
+
+                <div class="glass-card animate-item">
+                    <div class="card-top">
+                        <h3><i class="fas fa-certificate"></i> World IP day conference</h3>
+                        <span class="badge date-badge">April 2026</span>
+                    </div>
+                    <h4>Turn IP</h4>
+                    <p class="award-desc"><i class="fas fa-check-circle"></i>Learned about Design Thinking</p>
+                    <!-- Using lightbox-link class and data-img attribute to open local images in the viewer -->
+                    <a href="" data-img="cert/cert5.jpeg" data-alt="Placeholder Certification 2" class="action-link lightbox-link" style="margin-top: 1rem;">
+                        View Certificate <i class="fas fa-search-plus"></i>
+                    </a>
+                </div>
+
+                <div class="glass-card animate-item">
+                    <div class="card-top">
+                        <h3><i class="fas fa-certificate"></i> Entrepreneurship Foudation for deep startups</h3>
+                        <span class="badge date-badge">March 2026</span>
+                    </div>
+                    <h4>Entrepreneurship Development and Innovation</h4>
+                    <p class="award-desc"><i class="fas fa-check-circle"></i>Learned about Design Thinking</p>
+                    <!-- Using lightbox-link class and data-img attribute to open local images in the viewer -->
+                    <a href="" data-img="cert/cert6.jpeg" data-alt="Placeholder Certification 2" class="action-link lightbox-link" style="margin-top: 1rem;">
+                        View Certificate <i class="fas fa-search-plus"></i>
+                    </a>
+                </div>
+
+                <div class="glass-card animate-item">
+                    <div class="card-top">
+                        <h3><i class="fas fa-certificate"></i> Campus Ambassador</h3>
+                        <span class="badge date-badge">Dec 2025</span>
+                    </div>
+                    <h4>Codemy</h4>
+                    <p class="award-desc"><i class="fas fa-check-circle"></i>Learned about Design Thinking</p>
+                    <!-- Using lightbox-link class and data-img attribute to open local images in the viewer -->
+                    <a href="" data-img="cert/cert7.jpeg" data-alt="Placeholder Certification 2" class="action-link lightbox-link" style="margin-top: 1rem;">
+                        View Certificate <i class="fas fa-search-plus"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ────── CONTACT ────── -->
+        <section id="contact" class="scroll-section">
+            <div class="section-header animate-item">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="line"></div>
+            </div>
+            <div class="card-stack">
+                <div class="glass-card animate-item" style="text-align: center; padding: 3rem 2rem;">
+                    <h3 style="justify-content: center; margin-bottom: 1rem; font-size: 1.8rem;">Let's Connect!</h3>
+                    <p class="intro-text" style="max-width: 100%; margin-bottom: 2.5rem;">
+                        Feel free to reach out for collaborations, project ideas, or just to say hi!
+                    </p>
+                    <div class="social-links" style="gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="mailto:kanagubry@gmail.com" class="btn outline-btn"><i class="fas fa-envelope"></i> Email</a>
+                        <a href="https://www.linkedin.com/in/kanaga-prasath-balakumar/" target="_blank" class="btn outline-btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                        <a href="https://github.com/kanaguGaming" target="_blank" class="btn outline-btn"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://www.instagram.com/itz_mr_kg_here/" target="_blank" class="btn outline-btn"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="https://leetcode.com/u/CSE_4023_Mr-KG/" target="_blank" class="btn outline-btn"><i class="fas fa-code"></i> LeetCode</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
+
+    <!-- ── FOOTER ────────────────────────────────────────────── -->
+    <footer class="container animate-item" style="margin-top: 2rem; margin-bottom: 4rem; padding: 0 1.5rem;">
+        <div class="glass-card" style="text-align: center; padding: 1.5rem; border-radius: var(--radius-lg);">
+            <p style="color: var(--text-muted); font-size: 1rem; margin: 0; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em;">
+                Designed by 
+                <span style="font-family: var(--font-heading); font-weight: 700; background: linear-gradient(135deg, var(--c-blue), var(--c-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 10px rgba(0, 243, 255, 0.4);">Mr KG</span> 
+                aka 
+                <span style="font-family: var(--font-heading); font-weight: 700; background: linear-gradient(135deg, var(--c-cyan), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 10px rgba(0, 243, 255, 0.4);">Kanaga Prasath</span>
+            </p>
+        </div>
+    </footer>
 
     <!-- ── IMAGE LIGHTBOX ────────────────────────────────────── -->
     <div id="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
