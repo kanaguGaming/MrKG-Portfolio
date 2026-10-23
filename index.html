@@ -6,14 +6,14 @@
      <link rel="icon" type="png" href="IconTTL.png">
     <title>Kanaga Prasath | Full Stack Developer & IoT Engineer</title>
     <meta name="description" content="Portfolio of Kanaga Prasath — Full Stack Developer, IoT Engineer, and AI/ML enthusiast from Tamil Nadu, India. Building bridges between software intelligence and hardware execution.">
-    <meta name="theme-color" content="#04050d">
+    <meta name="theme-color" content="#f8f8ff">
 
     <!-- Preconnect for speed -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Premium Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Premium Designer Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -23,16 +23,19 @@
 </head>
 <body>
 
+    <!-- ── SCROLL PROGRESS INDICATOR ──────────────────────────── -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
     <!-- ── PAGE INTRO LOADER ─────────────────────────────────── -->
     <div id="loader">
         <div id="loader-center">
             <svg id="loader-ring-svg" viewBox="0 0 176 176" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%"   stop-color="#0066ff"/>
-                        <stop offset="35%"  stop-color="#00f3ff"/>
-                        <stop offset="65%"  stop-color="#00d4ff"/>
-                        <stop offset="100%" stop-color="#0047ff"/>
+                        <stop offset="0%"   stop-color="#0b192c"/>
+                        <stop offset="35%"  stop-color="#4682b4"/>
+                        <stop offset="70%"  stop-color="#00bfff"/>
+                        <stop offset="100%" stop-color="#0284c7"/>
                     </linearGradient>
                 </defs>
                 <!-- Dim track ring -->
@@ -62,26 +65,72 @@
     </div>
 
 
-    <nav class="navbar" id="navbar">
-        <div class="navbar-header">
-            <div class="nav-brand">Mr<span class="dot">.</span>KG</div>
-            <button class="menu-toggle" id="mobile-menu" aria-label="Toggle Menu">
-                <i class="fas fa-bars"></i>
-            </button>
+    <!-- ── COMPACT FLOATING CAPSULE NAVBAR ──────────────────────── -->
+    <header class="capsule-nav" id="navbar">
+        <a href="#home" class="nav-brand">Mr<span class="dot">.</span>KG</a>
+        <div class="nav-telemetry-badge">
+            <span class="telemetry-dot"></span>
+            <span class="telemetry-text">AVAILABLE FOR ROLES</span>
         </div>
-        <ul class="nav-links" id="nav-links">
-            <li><a href="#home"      class="tab-btn active"><i class="fas fa-house"></i> Home</a></li>
-            <li><a href="#about"     class="tab-btn"><i class="fas fa-user"></i> About</a></li>
-            <li><a href="#education" class="tab-btn"><i class="fas fa-graduation-cap"></i> Education</a></li>
-            <li><a href="#work"      class="tab-btn"><i class="fas fa-briefcase"></i> Experience</a></li>
-            <li><a href="#skills"    class="tab-btn"><i class="fas fa-code"></i> Skills</a></li>
-            <li><a href="#projects"  class="tab-btn"><i class="fas fa-rocket"></i> Projects</a></li>
-            <li><a href="#publications" class="tab-btn"><i class="fas fa-book-open"></i> Publications</a></li>
-            <li><a href="#awards"    class="tab-btn"><i class="fas fa-trophy"></i> Awards</a></li>
-            <li><a href="#certifications" class="tab-btn"><i class="fas fa-certificate"></i> Certs</a></li>
-            <li><a href="#contact"   class="tab-btn"><i class="fas fa-envelope"></i> Contact</a></li>
-        </ul>
-    </nav>
+        <button class="hamburger-btn" id="menu-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+            <span class="hamburger-icon">
+                <span class="line-1"></span>
+                <span class="line-2"></span>
+            </span>
+            <span class="hamburger-label">MENU</span>
+        </button>
+    </header>
+
+    <!-- ── ARCHITECTURAL CURTAIN MENU OVERLAY ─────────────────── -->
+    <div class="menu-overlay" id="menu-overlay" aria-hidden="true">
+        <div class="menu-backdrop" id="menu-backdrop"></div>
+        <div class="menu-drawer">
+            <div class="menu-top-bar">
+                <div class="menu-directory-title">
+                    <span class="dir-slash">//</span> SYSTEM DIRECTORY
+                </div>
+                <button class="menu-close-btn" id="menu-close-btn" aria-label="Close Menu">
+                    <span class="close-text">ESC / CLOSE</span>
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="menu-layout">
+                <nav class="menu-nav-column">
+                    <ul class="overlay-nav-links" id="nav-links">
+                        <li><a href="#home"           class="overlay-link tab-btn active" data-index="01"><span class="link-num">01</span><span class="link-label">Home</span><span class="link-desc">Overview</span></a></li>
+                        <li><a href="#about"          class="overlay-link tab-btn"        data-index="02"><span class="link-num">02</span><span class="link-label">About Me</span><span class="link-desc">Biography</span></a></li>
+                        <li><a href="#education"      class="overlay-link tab-btn"        data-index="03"><span class="link-num">03</span><span class="link-label">Education</span><span class="link-desc">Academics</span></a></li>
+                        <li><a href="#work"           class="overlay-link tab-btn"        data-index="04"><span class="link-num">04</span><span class="link-label">Experience</span><span class="link-desc">Internships</span></a></li>
+                        <li><a href="#skills"         class="overlay-link tab-btn"        data-index="05"><span class="link-num">05</span><span class="link-label">Skills</span><span class="link-desc">Arsenal</span></a></li>
+                        <li><a href="#projects"       class="overlay-link tab-btn"        data-index="06"><span class="link-num">06</span><span class="link-label">Projects</span><span class="link-desc">Portfolio</span></a></li>
+                        <li><a href="#publications"   class="overlay-link tab-btn"        data-index="07"><span class="link-num">07</span><span class="link-label">Publications</span><span class="link-desc">Research</span></a></li>
+                        <li><a href="#awards"         class="overlay-link tab-btn"        data-index="08"><span class="link-num">08</span><span class="link-label">Awards</span><span class="link-desc">Honors</span></a></li>
+                        <li><a href="#certifications" class="overlay-link tab-btn"        data-index="09"><span class="link-num">09</span><span class="link-label">Certifications</span><span class="link-desc">Credentials</span></a></li>
+                        <li><a href="#contact"        class="overlay-link tab-btn"        data-index="10"><span class="link-num">10</span><span class="link-label">Contact</span><span class="link-desc">Get In Touch</span></a></li>
+                    </ul>
+                </nav>
+                <div class="menu-info-column">
+                    <div class="info-widget">
+                        <span class="widget-label">TOPOGRAPHIC ELEVATION</span>
+                        <span class="widget-value">LAT 12.69° N &bull; LON 79.98° E</span>
+                    </div>
+                    <div class="info-widget">
+                        <span class="widget-label">CORE SPECIALIZATION</span>
+                        <span class="widget-value">Full Stack &bull; Embedded IoT &bull; AI/ML</span>
+                    </div>
+                    <div class="info-widget">
+                        <span class="widget-label">DIRECT INQUIRIES</span>
+                        <a href="mailto:kanagubry@gmail.com" class="widget-link">kanagubry@gmail.com</a>
+                    </div>
+                    <div class="info-social-links">
+                        <a href="https://www.linkedin.com/in/kanaga-prasath-balakumar/" target="_blank" class="social-chip"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                        <a href="https://github.com/kanaguGaming" target="_blank" class="social-chip"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="Kanaga_Prasath_Resume.pdf" target="_blank" class="social-chip"><i class="fas fa-file-pdf"></i> Resume</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ── MAIN CONTENT ──────────────────────────────────────── -->
     <main class="container">
@@ -133,29 +182,49 @@
                 <div class="line"></div>
             </div>
                        
-            <div class="glass-card animate-item">
-                <p class="intro-text" style="text-align: left; margin: 0; max-width: 100%;">
+            <div class="glass-card animate-item bento-lead">
+                <div class="bento-badge"><span class="pulse-beacon"></span> CORE PHILOSOPHY &amp; APPROACH</div>
+                <p class="intro-text" style="text-align: left; margin: 0 0 1rem; max-width: 100%;">
                    Passionate developer specializing in Python, Embedded Systems, and AI/ML integrations. I build bridges between software intelligence and hardware execution to create impactful, real-world solutions.
                 </p>
-                <p class="intro-text" style="text-align: left; margin: 0; max-width: 100%;">
+                <p class="intro-text" style="text-align: left; margin: 0 0 1rem; max-width: 100%;">
                    Solved 250+ problems on Leetcode and also possessing practical project development and management skills. I am a quick learner and a team player, always eager to take on new challenges and contribute to innovative projects.
                 </p>
                 <p class="intro-text" style="text-align: left; margin: 0; max-width: 100%;">
                    I am a person good at communication and anchoring, with a strong interest in event management and video editing. I am also an avid biker, exploring new places and cultures on two wheels.
                 </p>
             </div>
-            <div class="card-stack" style="flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
-                <div class="glass-card animate-item" style="flex: 1; min-width: 250px; text-align: center; padding: 1.5rem;">
-                     <h3 style="justify-content: center;"><i class="fas fa-map-marker-alt"></i> Location</h3>
-                     <h4 style="margin-top: 0.5rem;">Chengalpattu, TN</h4>
+            
+            <div class="bento-grid animate-item">
+                <div class="glass-card bento-tile">
+                     <div class="tile-icon"><i class="fas fa-map-marker-alt"></i></div>
+                     <span class="tile-label">Location Base</span>
+                     <h4 class="tile-val">Chengalpattu, TN</h4>
+                     <span class="tile-sub">12.69° N &bull; 79.98° E</span>
                 </div>
-                <div class="glass-card animate-item" style="flex: 1; min-width: 250px; text-align: center; padding: 1.5rem;">
-                     <h3 style="justify-content: center;"><i class="fas fa-university"></i> College</h3>
-                     <h4 style="margin-top: 0.5rem;">Adhi College of Engineering</h4>
+                <div class="glass-card bento-tile">
+                     <div class="tile-icon"><i class="fas fa-university"></i></div>
+                     <span class="tile-label">Academic Institution</span>
+                     <h4 class="tile-val">Adhi College of Engg</h4>
+                     <span class="tile-sub">Anna University Affiliation</span>
                 </div>
-                <div class="glass-card animate-item" style="flex: 1; min-width: 250px; text-align: center; padding: 1.5rem;">
-                     <h3 style="justify-content: center;"><i class="fas fa-star"></i> Grades</h3>
-                     <h4 style="margin-top: 0.5rem; color: var(--c-amber); font-weight: 700;">8.1 CGPA</h4>
+                <div class="glass-card bento-tile highlight-tile">
+                     <div class="tile-icon"><i class="fas fa-star"></i></div>
+                     <span class="tile-label">Cumulative GPA</span>
+                     <h4 class="tile-val grade-val">8.1 CGPA</h4>
+                     <span class="tile-sub">Top Tier Standing</span>
+                </div>
+                <div class="glass-card bento-tile">
+                     <div class="tile-icon"><i class="fas fa-rocket"></i></div>
+                     <span class="tile-label">Built Projects</span>
+                     <h4 class="tile-val">17+</h4>
+                     <span class="tile-sub">Hardware &amp; Web Systems</span>
+                </div>
+                <div class="glass-card bento-tile">
+                     <div class="tile-icon"><i class="fas fa-code"></i></div>
+                     <span class="tile-label">LeetCode Solved</span>
+                     <h4 class="tile-val">250+</h4>
+                     <span class="tile-sub">Algorithms &amp; DS</span>
                 </div>
             </div>
         </section>
@@ -166,33 +235,55 @@
                 <h2 class="section-title">Education</h2>
                 <div class="line"></div>
             </div>
-            <div class="card-stack">
+            <div class="roadmap-container">
+                <div class="roadmap-track"></div>
 
-                <div class="glass-card animate-item">
-                    <div class="card-top">
-                        <h3><i class="fas fa-university"></i> Bachelor of Engineering — Computer Science</h3>
-                        <span class="badge date-badge">Sep 2023 – Apr 2027</span>
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node">
+                        <span class="node-ring"></span>
+                        <span class="node-icon"><i class="fas fa-graduation-cap"></i></span>
                     </div>
-                    <h4>Adhi College of Engineering and Technologies, Kancheepuram</h4>
-                    <p class="stat"><i class="fas fa-star"></i> CGPA: <span>8.1</span></p>
+                    <div class="glass-card roadmap-card active-card">
+                        <div class="roadmap-header">
+                            <span class="roadmap-phase-badge active-phase">Current Degree Program</span>
+                            <span class="badge date-badge active-date">Sep 2023 – Apr 2027</span>
+                        </div>
+                        <h3>Bachelor of Engineering — Computer Science</h3>
+                        <h4 class="company-heading">Adhi College of Engineering and Technologies, Kancheepuram</h4>
+                        <p class="stat"><i class="fas fa-star"></i> CGPA: <span>8.1</span></p>
+                    </div>
                 </div>
 
-                <div class="glass-card animate-item">
-                    <div class="card-top">
-                        <h3><i class="fas fa-school"></i> Higher Secondary — Computer Science</h3>
-                        <span class="badge date-badge">May 2021 – May 2023</span>
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node">
+                        <span class="node-ring"></span>
+                        <span class="node-icon"><i class="fas fa-school"></i></span>
                     </div>
-                    <h4>Seventh Day Adventist Mt Hr Sec School, Chengalpattu</h4>
-                    <p class="stat"><i class="fas fa-chart-line"></i> Score: <span>76%</span></p>
+                    <div class="glass-card roadmap-card">
+                        <div class="roadmap-header">
+                            <span class="roadmap-phase-badge">Higher Secondary</span>
+                            <span class="badge date-badge">May 2021 – May 2023</span>
+                        </div>
+                        <h3>Higher Secondary — Computer Science</h3>
+                        <h4 class="company-heading">Seventh Day Adventist Mt Hr Sec School, Chengalpattu</h4>
+                        <p class="stat"><i class="fas fa-chart-line"></i> Score: <span>76%</span></p>
+                    </div>
                 </div>
 
-                <div class="glass-card animate-item">
-                    <div class="card-top">
-                        <h3><i class="fas fa-book"></i> Secondary Schooling — ICSE</h3>
-                        <span class="badge date-badge">May 2011 – Apr 2021</span>
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node">
+                        <span class="node-ring"></span>
+                        <span class="node-icon"><i class="fas fa-book"></i></span>
                     </div>
-                    <h4>Seventh Day Adventist Mt Hr Sec School, Chengalpattu</h4>
-                    <p class="stat"><i class="fas fa-chart-line"></i> Score: <span>82%</span></p>
+                    <div class="glass-card roadmap-card">
+                        <div class="roadmap-header">
+                            <span class="roadmap-phase-badge">Foundational ICSE</span>
+                            <span class="badge date-badge">May 2011 – Apr 2021</span>
+                        </div>
+                        <h3>Secondary Schooling — ICSE</h3>
+                        <h4 class="company-heading">Seventh Day Adventist Mt Hr Sec School, Chengalpattu</h4>
+                        <p class="stat"><i class="fas fa-chart-line"></i> Score: <span>82%</span></p>
+                    </div>
                 </div>
 
             </div>
@@ -204,98 +295,144 @@
                 <h2 class="section-title">Work Experience</h2>
                 <div class="line"></div>
             </div>
-            <div class="card-stack">
+            <div class="roadmap-container">
+                <div class="roadmap-track"></div>
 
-                 <div class="glass-card animate-item">
-                    <div class="card-top">
-                        <h3><i class="fas fa-microchip"></i> Data Science Intern</h3>
-                        <span class="badge date-badge">Sep 2026</span>
+                <!-- Milestone 1: Dec 2025 – Jan 2026 -->
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node">
+                        <span class="node-ring"></span>
+                        <span class="node-icon"><i class="fas fa-layer-group"></i></span>
                     </div>
-                    <h4>Oasis Infobytes<span class="badge outline-badge">Remote</span></h4>
-                    <h4>I am currently working as a Data Science Intern at Oasis Infobytes. Learning and gaining experience on data science and machine learning applications.</h4>
-                    <div class="tags">
-                        <span class="tag">Data Science</span>
-                        <span class="tag">Machine Learning</span>
-                        <span class="tag">Data Analysis</span>
-                        <span class="tag">Data Visualization</span>
-                    </div>
-                    
-                </div>
-
-                <div class="glass-card animate-item">
-                    <div class="card-top">
-                        <h3><i class="fas fa-microchip"></i> Robotics and IoT Intern</h3>
-                        <span class="badge date-badge">Jun 2026 – Aug 2026</span>
-                    </div>
-                    <h4>Codec Technologies <span class="badge outline-badge">Remote</span></h4>
-                    <h4>Worked as a Robotics and IoT Intern at Codec Technologies. Learning and gaining experience on embedded systems and IoT applications.</h4>
-                    <div class="tags">
-                        <span class="tag">Embedded System & IoT</span>
-                        <span class="tag">Sensor Integration</span>
-                        <span class="tag">Actuator Control</span>
-                        <span class="tag">IoT Automation</span>
-                    </div>
-                    
-                </div>
-
-                <div class="glass-card animate-item">
-                    <div class="card-top">
-                        <h3><i class="fas fa-database"></i> Data Science Intern</h3>
-                        <span class="badge date-badge">Jun 2026</span>
-                    </div>
-                    <h4>Thiranex <span class="badge outline-badge">Remote</span></h4>
-                    <h4>I completed my internship at Thiranex, where I gained experience in data analysis and visualization.</h4>
-                    <div class="tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Pandas</span>
-                        <span class="tag">MS Excel</span>
-                        <span class="tag">Data Visualization</span>
-                    </div>
-
-                </div>
-
-                <div class="glass-card animate-item">
-                    <div class="card-top">
-                        <h3><i class="fas fa-chart-bar"></i> Data Analysis Intern</h3>
-                        <span class="badge date-badge">Mar 2026 – Apr 2026</span>
-                    </div>
-                    <h4>Cognifyz Technologies <span class="badge outline-badge">Remote</span></h4>
-                    <h4>I worked on analyzing and visualizing data for various projects at Cognifyz Technologies.</h4>
-                    <div class="tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Pandas</span>
-                        <span class="tag">MS Excel</span>
-                        <span class="tag">Data Visualization</span>
+                    <div class="glass-card roadmap-card">
+                        <div class="roadmap-header">
+                            <span class="roadmap-phase-badge">Stage 01 &bull; Web Architecture</span>
+                            <span class="badge date-badge">Dec 2025 – Jan 2026</span>
+                        </div>
+                        <h3>Full Stack Developer Intern</h3>
+                        <h4 class="company-heading">Cognifyz Technologies <span class="badge outline-badge">Remote</span></h4>
+                        <p class="roadmap-desc">Engineered and maintained full-stack web applications using contemporary frameworks, building reactive UI components and robust backend APIs.</p>
+                        <div class="tags">
+                            <span class="tag">UI/UX</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">MongoDB</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="glass-card animate-item">
-                    <div class="card-top">
-                        <h3><i class="fas fa-bullhorn"></i> Digital Marketing Intern</h3>
-                        <span class="badge date-badge">Feb 2026 – Mar 2026</span>
+                <!-- Milestone 2: Feb 2026 – Mar 2026 -->
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node">
+                        <span class="node-ring"></span>
+                        <span class="node-icon"><i class="fas fa-bullhorn"></i></span>
                     </div>
-                    <h4>TurnIP <span class="badge outline-badge">Remote</span></h4>
-                    <h4>I was responsible for creating and managing email campaigns and developing marketing strategies for various clients.</h4>
-                    <div class="tags">
-                        <span class="tag">Email Marketing</span>
-                        <span class="tag">Marketing Strategies</span>
-                        <span class="tag">Social Media Marketing</span>
-                        <span class="tag">Content Creation</span>
+                    <div class="glass-card roadmap-card">
+                        <div class="roadmap-header">
+                            <span class="roadmap-phase-badge">Stage 02 &bull; Digital Strategy</span>
+                            <span class="badge date-badge">Feb 2026 – Mar 2026</span>
+                        </div>
+                        <h3>Digital Marketing Intern</h3>
+                        <h4 class="company-heading">TurnIP <span class="badge outline-badge">Remote</span></h4>
+                        <p class="roadmap-desc">Orchestrated automated email outreach campaigns, analyzed marketing funnel analytics, and formulated strategic social media engagement growth.</p>
+                        <div class="tags">
+                            <span class="tag">Email Marketing</span>
+                            <span class="tag">Marketing Strategies</span>
+                            <span class="tag">Social Media Marketing</span>
+                            <span class="tag">Content Creation</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="glass-card animate-item">
-                    <div class="card-top">
-                        <h3><i class="fas fa-layer-group"></i> Full Stack Developer Intern</h3>
-                        <span class="badge date-badge">Dec 2025 – Jan 2026</span>
+                <!-- Milestone 3: Mar 2026 – Apr 2026 -->
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node">
+                        <span class="node-ring"></span>
+                        <span class="node-icon"><i class="fas fa-chart-bar"></i></span>
                     </div>
-                    <h4>Cognifyz Technologies <span class="badge outline-badge">Remote</span></h4>
-                    <h4>I worked on developing and maintaining web applications using various technologies and frameworks.</h4>
-                    <div class="tags">
-                        <span class="tag">UI/UX</span>
-                        <span class="tag">Python</span>
-                        <span class="tag">FastAPI</span>
-                        <span class="tag">MongoDB</span>
+                    <div class="glass-card roadmap-card">
+                        <div class="roadmap-header">
+                            <span class="roadmap-phase-badge">Stage 03 &bull; Analytics & Insights</span>
+                            <span class="badge date-badge">Mar 2026 – Apr 2026</span>
+                        </div>
+                        <h3>Data Analysis Intern</h3>
+                        <h4 class="company-heading">Cognifyz Technologies <span class="badge outline-badge">Remote</span></h4>
+                        <p class="roadmap-desc">Analyzed and visualized multifaceted enterprise datasets, producing analytical reports, predictive indicators, and structured dashboards.</p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Pandas</span>
+                            <span class="tag">MS Excel</span>
+                            <span class="tag">Data Visualization</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 4: Jun 2026 -->
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node">
+                        <span class="node-ring"></span>
+                        <span class="node-icon"><i class="fas fa-database"></i></span>
+                    </div>
+                    <div class="glass-card roadmap-card">
+                        <div class="roadmap-header">
+                            <span class="roadmap-phase-badge">Stage 04 &bull; Exploratory Modeling</span>
+                            <span class="badge date-badge">Jun 2026</span>
+                        </div>
+                        <h3>Data Science Intern</h3>
+                        <h4 class="company-heading">Thiranex <span class="badge outline-badge">Remote</span></h4>
+                        <p class="roadmap-desc">Executed deep exploratory data analysis, data pre-processing pipelines, and structured analytical reporting to uncover key trends.</p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Pandas</span>
+                            <span class="tag">MS Excel</span>
+                            <span class="tag">Data Visualization</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 5: Jun 2026 – Aug 2026 -->
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node">
+                        <span class="node-ring"></span>
+                        <span class="node-icon"><i class="fas fa-microchip"></i></span>
+                    </div>
+                    <div class="glass-card roadmap-card">
+                        <div class="roadmap-header">
+                            <span class="roadmap-phase-badge">Stage 05 &bull; Embedded & Robotics</span>
+                            <span class="badge date-badge">Jun 2026 – Aug 2026</span>
+                        </div>
+                        <h3>Robotics and IoT Intern</h3>
+                        <h4 class="company-heading">Codec Technologies <span class="badge outline-badge">Remote</span></h4>
+                        <p class="roadmap-desc">Engineered microcontroller firmware, integrated sensor hardware with cloud backends, and implemented real-time actuator automation control systems.</p>
+                        <div class="tags">
+                            <span class="tag">Embedded System &amp; IoT</span>
+                            <span class="tag">Sensor Integration</span>
+                            <span class="tag">Actuator Control</span>
+                            <span class="tag">IoT Automation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 6: Sep 2026 (Latest/Present) -->
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node active-node">
+                        <span class="node-ring active-ring"></span>
+                        <span class="node-icon active-icon"><i class="fas fa-brain"></i></span>
+                    </div>
+                    <div class="glass-card roadmap-card active-card">
+                        <div class="roadmap-header">
+                            <span class="roadmap-phase-badge active-phase">Stage 06 &bull; Latest Milestone</span>
+                            <span class="badge date-badge active-date">Sep 2026</span>
+                        </div>
+                        <h3>Data Science Intern</h3>
+                        <h4 class="company-heading">Oasis Infobytes <span class="badge outline-badge">Remote</span></h4>
+                        <p class="roadmap-desc">Currently working on data science pipelines and machine learning integrations, evaluating neural models and real-time inference systems.</p>
+                        <div class="tags">
+                            <span class="tag">Data Science</span>
+                            <span class="tag">Machine Learning</span>
+                            <span class="tag">Data Analysis</span>
+                            <span class="tag">Data Visualization</span>
+                        </div>
                     </div>
                 </div>
 
@@ -841,126 +978,177 @@
                 <h2 class="section-title">Awards &amp; Honors</h2>
                 <div class="line"></div>
             </div>
-            <div class="card-stack">
+            <div class="roadmap-container">
+                <div class="roadmap-track award-track"></div>
 
-                <!-- Award 1 -->
-                <div class="glass-card project-card animate-item">
-                    <div class="project-banner">
-                        <div class="dummy-img-wide">
-                            <img src="award/awa3.jpeg" alt="Innovesta 26 Expo Winner" loading="lazy" decoding="async">
-                        </div>
+                <!-- Award Milestone 1: Feb 2026 -->
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node award-node">
+                        <span class="node-ring award-ring"></span>
+                        <span class="node-icon award-icon"><i class="fas fa-trophy"></i></span>
                     </div>
-                    <div class="project-body">
-                        <div class="card-top">
-                            <h3><i class="fas fa-trophy"></i> Winners - Innovesta 26 Expo</h3>
-                            <span class="badge date-badge">Feb 2026</span>
+                    <div class="glass-card roadmap-card award-card">
+                        <div class="project-banner">
+                            <div class="dummy-img-wide">
+                                <img src="award/awa3.jpeg" alt="Innovesta 26 Expo Winner" loading="lazy" decoding="async">
+                            </div>
                         </div>
-                        <h4>Adhi College Of Engineering &amp; Technology</h4>
-                        <p class="award-desc"><i class="fas fa-award"></i> Awarded for "Cloud Based Smart Home Automation" Project.</p>
+                        <div class="project-body">
+                            <div class="roadmap-header">
+                                <span class="roadmap-phase-badge award-phase"><i class="fas fa-trophy"></i> Grand Winner</span>
+                                <span class="badge date-badge">Feb 2026</span>
+                            </div>
+                            <h3>Winners — Innovesta 26 Expo</h3>
+                            <h4 class="company-heading">Adhi College Of Engineering &amp; Technology</h4>
+                            <p class="award-desc"><i class="fas fa-award"></i> Awarded 1st Place for "Cloud Based Smart Home Automation" Project.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Award 2 -->
-                <div class="glass-card project-card animate-item">
-                    <div class="project-banner">
-                        <div class="dummy-img-wide">
-                            <img src="award/awa2.jpeg" alt="National Level IoT Hackathon Runner Up" loading="lazy" decoding="async">
-                        </div>
+                <!-- Award Milestone 2: Feb 2026 -->
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node award-node">
+                        <span class="node-ring award-ring"></span>
+                        <span class="node-icon award-icon"><i class="fas fa-microchip"></i></span>
                     </div>
-                    <div class="project-body">
-                        <div class="card-top">
-                            <h3><i class="fas fa-trophy"></i> Winners — National Level IoT Hackathon</h3>
-                            <span class="badge date-badge">Feb 2026</span>
+                    <div class="glass-card roadmap-card award-card">
+                        <div class="project-banner">
+                            <div class="dummy-img-wide">
+                                <img src="award/awa2.jpeg" alt="National Level IoT Hackathon Runner Up" loading="lazy" decoding="async">
+                            </div>
                         </div>
-                        <h4>SRM Institute of Science &amp; Technology</h4>
-                        <p class="award-desc"><i class="fas fa-award"></i> Awarded for creating the best ground rover using ESP8266.</p>
+                        <div class="project-body">
+                            <div class="roadmap-header">
+                                <span class="roadmap-phase-badge award-phase"><i class="fas fa-trophy"></i> 1st Prize Hackathon</span>
+                                <span class="badge date-badge">Feb 2026</span>
+                            </div>
+                            <h3>Winners — National Level IoT Hackathon</h3>
+                            <h4 class="company-heading">SRM Institute of Science &amp; Technology</h4>
+                            <p class="award-desc"><i class="fas fa-award"></i> Awarded for engineering the best autonomous ground rover utilizing ESP8266.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Award 3 -->
-                <div class="glass-card project-card animate-item">
-                    <div class="project-banner">
-                        <div class="dummy-img-wide">
-                            <img src="award/awa1.jpeg" alt="IoT Division Winners Special Mention" loading="lazy" decoding="async">
-                        </div>
+                <!-- Award Milestone 3: Feb 2026 -->
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node award-node">
+                        <span class="node-ring award-ring"></span>
+                        <span class="node-icon award-icon"><i class="fas fa-bolt"></i></span>
                     </div>
-                    <div class="project-body">
-                        <div class="card-top">
-                            <h3><i class="fas fa-star"></i>Winners — HacktriX 24H Live hackathon</h3>
-                            <span class="badge date-badge">May 2026</span>
+                    <div class="glass-card roadmap-card award-card">
+                        <div class="project-banner">
+                            <div class="dummy-img-wide">
+                                <img src="award/awa4.jpeg" alt="Rapid Fire & Technical Quiz Winner" loading="lazy" decoding="async">
+                            </div>
                         </div>
-                        <h4>Sairam Institute of Engineering &amp; Technology</h4>
-                        <p class="award-desc"><i class="fas fa-award"></i> Awarded for the "GreenPal" IoT project.</p>
+                        <div class="project-body">
+                            <div class="roadmap-header">
+                                <span class="roadmap-phase-badge award-phase"><i class="fas fa-bolt"></i> Solo Champion</span>
+                                <span class="badge date-badge">Feb 2026</span>
+                            </div>
+                            <h3>Rapid Fire &amp; Technical Quiz Winner</h3>
+                            <h4 class="company-heading">Chennai Institute of Technology, Chennai</h4>
+                            <p class="award-desc"><i class="fas fa-award"></i> Solo winner of a highly competitive technical quiz event across top engineering colleges.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Award 4 -->
-                <div class="glass-card project-card animate-item">
-                    <div class="project-banner">
-                        <div class="dummy-img-wide">
-                            <img src="award/awa4.jpeg" alt="Rapid Fire & Technical Quiz Winner" loading="lazy" decoding="async">
-                        </div>
+                <!-- Award Milestone 4: Mar 2026 -->
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node award-node">
+                        <span class="node-ring award-ring"></span>
+                        <span class="node-icon award-icon"><i class="fas fa-medal"></i></span>
                     </div>
-                    <div class="project-body">
-                        <div class="card-top">
-                            <h3><i class="fas fa-bolt"></i> Rapid Fire &amp; Technical Quiz Winner</h3>
-                            <span class="badge date-badge">Feb 2026</span>
+                    <div class="glass-card roadmap-card award-card">
+                        <div class="project-banner">
+                            <div class="dummy-img-wide">
+                                <img src="award/awa5.jpeg" alt="Technical Quiz Second Runners" loading="lazy" decoding="async">
+                            </div>
                         </div>
-                        <h4>Chennai Institute of Technology, Chennai</h4>
-                        <p class="award-desc"><i class="fas fa-award"></i> Solo winner of a highly competitive technical quiz event.</p>
+                        <div class="project-body">
+                            <div class="roadmap-header">
+                                <span class="roadmap-phase-badge award-phase"><i class="fas fa-medal"></i> Podium Finish</span>
+                                <span class="badge date-badge">Mar 2026</span>
+                            </div>
+                            <h3>Technical Quiz — Second Runners</h3>
+                            <h4 class="company-heading">VELS University</h4>
+                            <p class="award-desc"><i class="fas fa-award"></i> Team podium winners of a competitive inter-collegiate technical event.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Award 5 -->
-                <div class="glass-card project-card animate-item">
-                    <div class="project-banner">
-                        <div class="dummy-img-wide">
-                            <img src="award/awa5.jpeg" alt="Technical Quiz Second Runners" loading="lazy" decoding="async">
-                        </div>
+                <!-- Award Milestone 5: May 2026 -->
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node award-node">
+                        <span class="node-ring award-ring"></span>
+                        <span class="node-icon award-icon"><i class="fas fa-star"></i></span>
                     </div>
-                    <div class="project-body">
-                        <div class="card-top">
-                            <h3><i class="fas fa-medal"></i> Technical Quiz — Second Runners</h3>
-                            <span class="badge date-badge">Mar 2026</span>
+                    <div class="glass-card roadmap-card award-card">
+                        <div class="project-banner">
+                            <div class="dummy-img-wide">
+                                <img src="award/awa1.jpeg" alt="IoT Division Winners Special Mention" loading="lazy" decoding="async">
+                            </div>
                         </div>
-                        <h4>VELS University</h4>
-                        <p class="award-desc"><i class="fas fa-award"></i> Team winners of a competitive technical event.</p>
+                        <div class="project-body">
+                            <div class="roadmap-header">
+                                <span class="roadmap-phase-badge award-phase"><i class="fas fa-star"></i> Hackathon Winners</span>
+                                <span class="badge date-badge">May 2026</span>
+                            </div>
+                            <h3>Winners — HacktriX 24H Live Hackathon</h3>
+                            <h4 class="company-heading">Sairam Institute of Engineering &amp; Technology</h4>
+                            <p class="award-desc"><i class="fas fa-award"></i> Awarded 1st place in the IoT Division for the "GreenPal" Plant Intelligence project.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Award 6 -->
-                 <div class="glass-card project-card animate-item">
-                    <div class="project-banner">
-                        <div class="dummy-img-wide">
-                            <img src="award/awa6.jpg" alt="Best Performer Awrard" loading="lazy" decoding="async">
-                        </div>
+                <!-- Award Milestone 6: Sep 2026 -->
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node award-node">
+                        <span class="node-ring award-ring"></span>
+                        <span class="node-icon award-icon"><i class="fas fa-award"></i></span>
                     </div>
-                    <div class="project-body">
-                        <div class="card-top">
-                            <h3><i class="fas fa-medal"></i> Workshop Hackathon - Best Performer Award</h3>
-                            <span class="badge date-badge">Sep 2026</span>
+                    <div class="glass-card roadmap-card award-card">
+                        <div class="project-banner">
+                            <div class="dummy-img-wide">
+                                <img src="award/awa6.jpg" alt="Best Performer Awrard" loading="lazy" decoding="async">
+                            </div>
                         </div>
-                        <h4>SRM University</h4>
-                        <p class="award-desc"><i class="fas fa-award"></i>Solo best performer at 3 Day Workshop at SRMIST Katangulathur.</p>
+                        <div class="project-body">
+                            <div class="roadmap-header">
+                                <span class="roadmap-phase-badge award-phase"><i class="fas fa-award"></i> Best Performer</span>
+                                <span class="badge date-badge">Sep 2026</span>
+                            </div>
+                            <h3>Workshop Hackathon — Best Performer Award</h3>
+                            <h4 class="company-heading">SRM University</h4>
+                            <p class="award-desc"><i class="fas fa-award"></i> Solo best performer at 3-Day Intensive Robotics &amp; IoT Workshop at SRMIST Kattankulathur.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Award 7 -->
-                 <div class="glass-card project-card animate-item">
-                    <div class="project-banner">
-                        <div class="dummy-img-wide">
-                            <img src="award/awa7.jpg" alt="Special Recognition – Symposium Event Leadership and Contribution" loading="lazy" decoding="async">
-                        </div>
+                <!-- Award Milestone 7: Sep 2026 -->
+                <div class="roadmap-item animate-item">
+                    <div class="roadmap-node award-node active-node">
+                        <span class="node-ring active-ring"></span>
+                        <span class="node-icon active-icon"><i class="fas fa-crown"></i></span>
                     </div>
-                    <div class="project-body">
-                        <div class="card-top">
-                            <h3><i class="fas fa-medal"></i>Cebroid 2k26 - Chief Coordinator Honor</h3>
-                            <span class="badge date-badge">Sep 2026</span>
+                    <div class="glass-card roadmap-card award-card active-card">
+                        <div class="project-banner">
+                            <div class="dummy-img-wide">
+                                <img src="award/awa7.jpg" alt="Special Recognition – Symposium Event Leadership and Contribution" loading="lazy" decoding="async">
+                            </div>
                         </div>
-                        <h4>Imperio CSE - ACET</h4>
-                        <p class="award-desc"><i class="fas fa-award"></i>As a mark of recognition and trust, I was honored with the opportunity to light the ceremonial lamp following the CEO, Vice President, and Head of the Department at the event inauguration.</p>
+                        <div class="project-body">
+                            <div class="roadmap-header">
+                                <span class="roadmap-phase-badge active-phase"><i class="fas fa-crown"></i> Chief Coordinator Honor</span>
+                                <span class="badge date-badge active-date">Sep 2026</span>
+                            </div>
+                            <h3>Cebroid 2k26 — Chief Coordinator Honor</h3>
+                            <h4 class="company-heading">Imperio CSE — ACET</h4>
+                            <p class="award-desc"><i class="fas fa-award"></i> As a mark of leadership and trust, honored with lighting the ceremonial lamp following the CEO, Vice President, and HOD at the grand symposium inauguration.</p>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -1106,11 +1294,11 @@
     <!-- ── FOOTER ────────────────────────────────────────────── -->
     <footer class="container animate-item" style="margin-top: 2rem; margin-bottom: 4rem; padding: 0 1.5rem;">
         <div class="glass-card" style="text-align: center; padding: 1.5rem; border-radius: var(--radius-lg);">
-            <p style="color: var(--text-muted); font-size: 1rem; margin: 0; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em;">
+            <p class="footer-text">
                 Designed by 
-                <span style="font-family: var(--font-heading); font-weight: 700; background: linear-gradient(135deg, var(--c-blue), var(--c-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 10px rgba(0, 243, 255, 0.4);">Mr KG</span> 
+                <span class="footer-name">Mr KG</span> 
                 aka 
-                <span style="font-family: var(--font-heading); font-weight: 700; background: linear-gradient(135deg, var(--c-cyan), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 10px rgba(0, 243, 255, 0.4);">Kanaga Prasath</span>
+                <span class="footer-name">Kanaga Prasath</span>
             </p>
         </div>
     </footer>
