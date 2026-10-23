@@ -44,74 +44,74 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ── 1. CUSTOM CURSOR ─────────────────────────────────────── */
+  /* ── 1. CUSTOM CURSOR (GPU Accelerated & Touch Safe) ──────────────── */
   const cursorDot  = document.getElementById('cursor-dot');
   const cursorRing = document.getElementById('cursor-ring');
   const spotlight  = document.getElementById('cursor-spotlight');
+  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let ringX  = mouseX;
-  let ringY  = mouseY;
+  if (isTouchDevice) {
+    if (cursorDot) cursorDot.style.display = 'none';
+    if (cursorRing) cursorRing.style.display = 'none';
+    if (spotlight) spotlight.style.display = 'none';
+    document.body.style.cursor = 'auto';
+  } else {
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX  = mouseX;
+    let ringY  = mouseY;
+    const lerpFactor = 0.16;
 
-  const lerpFactor = 0.14;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, { passive: true });
 
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  function animateCursor() {
-    if (cursorDot) {
-      cursorDot.style.left = mouseX + 'px';
-      cursorDot.style.top  = mouseY + 'px';
-    }
-    ringX += (mouseX - ringX) * lerpFactor;
-    ringY += (mouseY - ringY) * lerpFactor;
-    if (cursorRing) {
-      cursorRing.style.left = ringX + 'px';
-      cursorRing.style.top  = ringY + 'px';
-    }
-    if (spotlight) {
-      spotlight.style.left = mouseX + 'px';
-      spotlight.style.top  = mouseY + 'px';
+    function animateCursor() {
+      if (cursorDot) {
+        cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+      }
+      ringX += (mouseX - ringX) * lerpFactor;
+      ringY += (mouseY - ringY) * lerpFactor;
+      if (cursorRing) {
+        cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+      }
+      if (spotlight) {
+        spotlight.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+      }
+      requestAnimationFrame(animateCursor);
     }
     requestAnimationFrame(animateCursor);
+
+    const interactiveEls = document.querySelectorAll(
+      'a, button, .btn, .tab-btn, .glass-card, .tag, .action-link, .contact-info a, .filter-btn'
+    );
+    interactiveEls.forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'), { passive: true });
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'), { passive: true });
+    });
+
+    document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'), { passive: true });
+    document.addEventListener('mouseup',   () => document.body.classList.remove('cursor-click'), { passive: true });
+    document.addEventListener('mouseleave', () => {
+      if (cursorDot)  cursorDot.style.opacity  = '0';
+      if (cursorRing) cursorRing.style.opacity = '0';
+      if (spotlight)  spotlight.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+      if (cursorDot)  cursorDot.style.opacity  = '1';
+      if (cursorRing) cursorRing.style.opacity = '1';
+      if (spotlight)  spotlight.style.opacity = '1';
+    });
   }
-  animateCursor();
-
-  const interactiveEls = document.querySelectorAll(
-    'a, button, .btn, .tab-btn, .glass-card, .tag, .action-link, .contact-info a'
-  );
-  interactiveEls.forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-  });
-
-  document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
-  document.addEventListener('mouseup',   () => document.body.classList.remove('cursor-click'));
-  document.addEventListener('mouseleave', () => {
-    if (cursorDot)  cursorDot.style.opacity  = '0';
-    if (cursorRing) cursorRing.style.opacity = '0';
-  });
-  document.addEventListener('mouseenter', () => {
-    if (cursorDot)  cursorDot.style.opacity  = '1';
-    if (cursorRing) cursorRing.style.opacity = '1';
-  });
 
 
-  /* ── 2. HONEYCOMB BACKGROUND ───────────────────────────────────────── */
+  /* ── 2. HONEYCOMB BACKGROUND (Precomputed Vertices & Pausable) ───────── */
   const canvas = document.getElementById('aurora-canvas');
   if (canvas) {
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     let W = canvas.width = window.innerWidth;
     let H = canvas.height = window.innerHeight;
-
-    window.addEventListener('resize', () => {
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-      initHexGrid();
-    });
 
     const hexRadius = 40;
     const hexWidth = Math.sqrt(3) * hexRadius;
@@ -119,13 +119,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const yOffset = hexHeight * 0.75;
     let hexagons = [];
 
+    // Precalculate hexagon vertex offsets once to avoid thousands of Math.cos/sin per frame
+    const hexOffsets = [];
+    for (let i = 0; i < 6; i++) {
+      const angle = (Math.PI / 3) * i - (Math.PI / 6);
+      hexOffsets.push({
+        x: hexRadius * Math.cos(angle),
+        y: hexRadius * Math.sin(angle)
+      });
+    }
+
     class Hexagon {
       constructor(x, y, row, col) {
         this.x = x;
         this.y = y;
         this.row = row;
         this.col = col;
-        // Randomize initial animation state
         this.baseOpacity = Math.random() * 0.1;
         this.pulseSpeed = 0.005 + Math.random() * 0.01;
         this.phase = Math.random() * Math.PI * 2;
@@ -134,32 +143,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       draw(ctx, time) {
-        // Dynamic opacity pulsing
         const opacity = this.baseOpacity + (Math.sin(time * this.pulseSpeed + this.phase) * 0.08);
-        if (opacity <= 0.01) return; // Skip drawing very faint hexes for performance
+        if (opacity <= 0.01) return;
         
-        // Floating effect
         const currentY = this.y + Math.sin(time * 0.002 * this.floatSpeed + this.floatOffset) * 10;
 
         ctx.beginPath();
-        for (let i = 0; i < 6; i++) {
-          const angle = (Math.PI / 3) * i - (Math.PI / 6);
-          const px = this.x + hexRadius * Math.cos(angle);
-          const py = currentY + hexRadius * Math.sin(angle);
-          if (i === 0) ctx.moveTo(px, py);
-          else ctx.lineTo(px, py);
+        ctx.moveTo(this.x + hexOffsets[0].x, currentY + hexOffsets[0].y);
+        for (let i = 1; i < 6; i++) {
+          ctx.lineTo(this.x + hexOffsets[i].x, currentY + hexOffsets[i].y);
         }
         ctx.closePath();
 
-        // Stroke styling
         ctx.strokeStyle = `rgba(0, 243, 255, ${opacity})`;
         ctx.lineWidth = 1;
         ctx.stroke();
         
-        // Sometimes fill some hexagons
         if (opacity > 0.15) {
-            ctx.fillStyle = `rgba(0, 102, 255, ${opacity * 0.2})`;
-            ctx.fill();
+          ctx.fillStyle = `rgba(0, 102, 255, ${opacity * 0.2})`;
+          ctx.fill();
         }
       }
     }
@@ -173,13 +175,11 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let col = 0; col < cols; col++) {
           let x = col * hexWidth;
           let y = row * yOffset;
-          // Offset odd rows
           if (row % 2 !== 0) {
             x += hexWidth / 2;
           }
-          // Only add a subset of hexagons to make it look "floating" and techy
           if (Math.random() > 0.3) {
-             hexagons.push(new Hexagon(x, y, row, col));
+            hexagons.push(new Hexagon(x, y, row, col));
           }
         }
       }
@@ -187,15 +187,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initHexGrid();
 
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+        initHexGrid();
+      }, 100);
+    }, { passive: true });
+
+    let canvasAnimId = null;
     function drawHoneycomb(time) {
       ctx.clearRect(0, 0, W, H);
-      
-      hexagons.forEach(hex => hex.draw(ctx, time));
-
-      requestAnimationFrame(drawHoneycomb);
+      for (let i = 0; i < hexagons.length; i++) {
+        hexagons[i].draw(ctx, time);
+      }
+      canvasAnimId = requestAnimationFrame(drawHoneycomb);
     }
 
-    requestAnimationFrame(drawHoneycomb);
+    canvasAnimId = requestAnimationFrame(drawHoneycomb);
+
+    // Stop canvas animation completely when document is hidden to save 100% CPU/GPU
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (canvasAnimId) cancelAnimationFrame(canvasAnimId);
+        canvasAnimId = null;
+      } else if (!canvasAnimId) {
+        canvasAnimId = requestAnimationFrame(drawHoneycomb);
+      }
+    });
   }
 
 
@@ -214,7 +235,6 @@ document.addEventListener('DOMContentLoaded', () => {
       navLinksContainer.classList.toggle('active');
     });
 
-    // Close menu when clicking a link
     const links = navLinksContainer.querySelectorAll('a');
     links.forEach(link => {
       link.addEventListener('click', () => {
@@ -244,67 +264,124 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, {
     root: null,
-    rootMargin: '-40% 0px -60% 0px',
+    rootMargin: '-30% 0px -60% 0px',
     threshold: 0
   });
 
   sections.forEach(s => scrollObserver.observe(s));
 
 
-  /* ── 5. SCROLL REVEAL ANIMATIONS ────────────────────────────── */
+  /* ── 5. SCROLL REVEAL ANIMATIONS (CSS Class-Based, Zero Jank) ── */
   const animItems = document.querySelectorAll('.animate-item');
 
-  animItems.forEach(item => {
-    item.style.opacity   = '0';
-    item.style.transform = 'translateY(28px)';
-    item.style.transition = 'none';
-  });
-
   const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry, i) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.style.transition =
-            'opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1)';
-          entry.target.style.opacity   = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }, i * 80);
+        entry.target.classList.add('revealed');
         observer.unobserve(entry.target);
       }
     });
   }, {
-    rootMargin: '0px 0px -60px 0px',
-    threshold: 0.08
+    rootMargin: '0px 0px -40px 0px',
+    threshold: 0.05
   });
 
-  // Delay observation until loader begins dissolving so scroll-reveal
-  // animations fire just as the blurred overlay clears — creating the
-  // "elements light up with blur" effect the user sees.
-  setTimeout(() => animItems.forEach(item => revealObserver.observe(item)), 2800);
+  setTimeout(() => animItems.forEach(item => revealObserver.observe(item)), 2400);
 
 
-  /* ── 6. CARD MOUSE-REACTIVE GLOW ────────────────────────────── */
+  /* ── 6. CARD MOUSE-REACTIVE GLOW (Throttled & Cached Rects) ─── */
   document.querySelectorAll('.glass-card').forEach(card => {
+    let rect = null;
+    let ticking = false;
+
+    card.addEventListener('mouseenter', () => {
+      rect = card.getBoundingClientRect();
+    }, { passive: true });
+
     card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-      card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-    });
+      if (!rect) rect = card.getBoundingClientRect();
+      const clientX = e.clientX;
+      const clientY = e.clientY;
+
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (rect) {
+            card.style.setProperty('--mouse-x', `${clientX - rect.left}px`);
+            card.style.setProperty('--mouse-y', `${clientY - rect.top}px`);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    card.addEventListener('mouseleave', () => {
+      rect = null;
+    }, { passive: true });
   });
 
 
-  /* ── 7. MAGNETIC BUTTON EFFECT ───────────────────────────────── */
+  /* ── 7. MAGNETIC BUTTON EFFECT (Smooth & Safe) ───────────────── */
   document.querySelectorAll('.btn, .tab-btn').forEach(btn => {
+    let rect = null;
+    btn.addEventListener('mouseenter', () => {
+      rect = btn.getBoundingClientRect();
+    }, { passive: true });
     btn.addEventListener('mousemove', e => {
-      const rect = btn.getBoundingClientRect();
-      const dx   = (e.clientX - (rect.left + rect.width  / 2)) * 0.25;
-      const dy   = (e.clientY - (rect.top  + rect.height / 2)) * 0.25;
-      btn.style.transform = `translate(${dx}px, ${dy}px)`;
-    });
+      if (!rect) rect = btn.getBoundingClientRect();
+      const dx = (e.clientX - (rect.left + rect.width  / 2)) * 0.22;
+      const dy = (e.clientY - (rect.top  + rect.height / 2)) * 0.22;
+      btn.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
+    }, { passive: true });
     btn.addEventListener('mouseleave', () => {
+      rect = null;
       btn.style.transform = '';
-    });
+    }, { passive: true });
   });
+
+
+  /* ── 7.1. PROJECT CATEGORY FILTER (Smooth Transition & Dynamic Counts) ── */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card[data-category]');
+
+  if (filterBtns.length > 0 && projectCards.length > 0) {
+    // Dynamically update count badges from DOM elements
+    const compCount = document.querySelectorAll('.project-card[data-category="competition"]').length;
+    const clientCount = document.querySelectorAll('.project-card[data-category="client"]').length;
+    const allCount = projectCards.length;
+
+    const allPill = document.querySelector('.filter-btn[data-filter="all"] .filter-count');
+    const compPill = document.querySelector('.filter-btn[data-filter="competition"] .filter-count');
+    const clientPill = document.querySelector('.filter-btn[data-filter="client"] .filter-count');
+
+    if (allPill) allPill.textContent = allCount;
+    if (compPill) compPill.textContent = compCount;
+    if (clientPill) clientPill.textContent = clientCount;
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetFilter = btn.getAttribute('data-filter');
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        projectCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (targetFilter === 'all' || category === targetFilter) {
+            card.classList.remove('filter-hidden');
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(12px) translateZ(0)';
+            requestAnimationFrame(() => {
+              card.style.transition = 'opacity 0.35s ease, transform 0.35s var(--ease-spring)';
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0) translateZ(0)';
+            });
+          } else {
+            card.classList.add('filter-hidden');
+          }
+        });
+      });
+    });
+  }
 
 
   /* ── 8. TAG RIPPLE CLICK EFFECT ──────────────────────────────── */

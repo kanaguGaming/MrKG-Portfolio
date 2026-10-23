@@ -72,7 +72,7 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   overflow-x: hidden;
-  width: 100vw;
+  width: 100%;
   max-width: 100%;
 }
 
@@ -81,11 +81,13 @@ body {
   color: var(--text-primary);
   font-family: var(--font-body);
   overflow-x: hidden;
-  width: 100vw;
+  width: 100%;
   max-width: 100%;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  cursor: none; /* Use custom cursor */
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  cursor: none; /* Use custom cursor on non-touch */
   background-image:
     radial-gradient(ellipse 80% 50% at 50% 120%, rgba(0, 102, 255, 0.08) 0%, transparent 60%),
     radial-gradient(ellipse 60% 40% at 80% 0%, rgba(0, 243, 255, 0.04) 0%, transparent 50%);
@@ -94,6 +96,8 @@ body {
 /* ── CUSTOM CURSOR ───────────────────────────────────────────── */
 #cursor-dot {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -101,21 +105,23 @@ body {
   box-shadow: 0 0 10px var(--c-cyan), 0 0 20px rgba(0, 243, 255, 0.3);
   pointer-events: none;
   z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  will-change: transform;
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
   mix-blend-mode: screen;
 }
 
 #cursor-ring {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 36px;
   height: 36px;
   border-radius: 50%;
   border: 1.5px solid rgba(0, 243, 255, 0.45);
   pointer-events: none;
   z-index: 99998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.18s ease, width 0.25s ease, height 0.25s ease,
+  will-change: transform;
+  transition: width 0.25s ease, height 0.25s ease,
               border-color 0.25s ease, background 0.25s ease;
   backdrop-filter: blur(2px);
 }
@@ -163,6 +169,8 @@ body.cursor-click #cursor-ring {
 /* Spotlight — follows cursor */
 #cursor-spotlight {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 700px;
   height: 700px;
   border-radius: 50%;
@@ -172,9 +180,9 @@ body.cursor-click #cursor-ring {
     rgba(0, 243, 255, 0.05) 40%,
     transparent 70%
   );
-  transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 0;
+  will-change: transform;
   transition: opacity 0.3s ease;
   mix-blend-mode: screen;
 }
@@ -353,10 +361,23 @@ body.cursor-click #cursor-ring {
   scroll-margin-top: 5rem;
 }
 
+.scroll-section:not(#home) {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
+}
+
 /* ── ANIMATIONS ──────────────────────────────────────────────── */
 .animate-item {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(24px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.animate-item.revealed {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
 }
 
 @keyframes slideUpFade {
@@ -681,9 +702,12 @@ body.cursor-click #cursor-ring {
   border: 1px solid rgba(0, 243, 255, 0.08);
   border-radius: var(--radius-md);
   padding: 1.75rem 2rem;
-  transition: all 0.35s var(--ease-spring);
+  transition: transform 0.35s var(--ease-spring), border-color 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
   position: relative;
   overflow: hidden;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 /* Top edge highlight — neon scanline */
@@ -720,7 +744,8 @@ body.cursor-click #cursor-ring {
 }
 
 .glass-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) translateZ(0);
+  will-change: transform;
   border-color: rgba(0, 243, 255, 0.25);
   background: var(--bg-card-hover);
   box-shadow:
@@ -843,11 +868,82 @@ body.cursor-click #cursor-ring {
   background: rgba(0, 243, 255, 0.08);
 }
 
+/* ── PROJECT FILTER BAR ─────────────────────────────────────── */
+.project-filter-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 2.25rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: rgba(0, 243, 255, 0.03);
+  border: 1px solid rgba(0, 243, 255, 0.16);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.55rem 1.25rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.25s var(--ease-smooth);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  user-select: none;
+}
+
+.filter-btn:hover {
+  color: var(--c-cyan);
+  border-color: rgba(0, 243, 255, 0.45);
+  background: rgba(0, 243, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 0 16px rgba(0, 243, 255, 0.2);
+}
+
+.filter-btn.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(0, 102, 255, 0.4), rgba(0, 243, 255, 0.25));
+  border-color: var(--c-cyan);
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.35), 0 0 40px rgba(0, 102, 255, 0.2);
+}
+
+.filter-btn .filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.35rem;
+  height: 1.35rem;
+  padding: 0 0.4rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  background: rgba(0, 243, 255, 0.12);
+  color: var(--c-cyan);
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+
+.filter-btn.active .filter-count {
+  background: #ffffff;
+  color: #020409;
+}
+
 /* ── PROJECT CARDS ───────────────────────────────────────────── */
 .project-card {
   padding: 0;
   display: flex;
   flex-direction: column;
+  transition: transform 0.35s var(--ease-spring), opacity 0.35s ease, border-color 0.3s ease, box-shadow 0.35s ease;
+}
+
+.project-card.filter-hidden {
+  display: none !important;
 }
 
 .project-banner {
@@ -866,6 +962,61 @@ body.cursor-click #cursor-ring {
     rgba(4,5,13,0.6) 100%
   );
   pointer-events: none;
+}
+
+/* Floating Category Badge Pill on Banner */
+.project-badge-pill {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.38rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  pointer-events: auto;
+}
+
+.project-card:hover .project-badge-pill {
+  transform: translateY(-2px);
+}
+
+/* Competition Badge Style — Golden Cyber Glow */
+.badge-competition {
+  background: rgba(22, 16, 4, 0.84);
+  color: #ffc93c;
+  border: 1px solid rgba(255, 201, 60, 0.65);
+  box-shadow: 0 0 16px rgba(255, 193, 7, 0.28), 0 4px 16px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 8px rgba(255, 193, 7, 0.4);
+}
+.badge-competition i {
+  color: #ffc107;
+  font-size: 0.78rem;
+  text-shadow: 0 0 8px rgba(255, 193, 7, 0.7);
+}
+
+/* Client Badge Style — Neon Cyber-Cyan Pro */
+.badge-client {
+  background: rgba(2, 22, 32, 0.84);
+  color: #00f3ff;
+  border: 1px solid rgba(0, 243, 255, 0.6);
+  box-shadow: 0 0 16px rgba(0, 243, 255, 0.28), 0 4px 16px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 8px rgba(0, 243, 255, 0.4);
+}
+.badge-client i {
+  color: #00f3ff;
+  font-size: 0.78rem;
+  text-shadow: 0 0 8px rgba(0, 243, 255, 0.7);
 }
 
 .dummy-img-wide {
