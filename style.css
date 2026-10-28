@@ -1508,11 +1508,20 @@ body.cursor-click #cursor-ring {
   pointer-events: none;
 }
 
-.project-badge-pill {
+.project-badges {
   position: absolute;
   top: 1rem;
   left: 1rem;
   z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.project-badge-pill {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -1528,6 +1537,15 @@ body.cursor-click #cursor-ring {
   box-shadow: 0 4px 12px rgba(11, 25, 44, 0.15);
   transition: transform 0.25s ease;
   pointer-events: auto;
+  width: fit-content;
+}
+
+/* Fallback if a badge is placed directly in .project-banner without .project-badges wrapper */
+.project-banner > .project-badge-pill {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 4;
 }
 
 .project-card:hover .project-badge-pill {
